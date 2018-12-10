@@ -1,0 +1,8 @@
+﻿  my_opengl.cc
+  Note: including lib: glut32.lib
+  
+  region_subdivision.cpp
+  Note: including lib: glut32.lib
+  
+  Generating Code...
+  scanline_z_buffer.vcxproj -> E:\ZJU_LESSON\CG\scanline_z_buffer\x64\Debug\scanline_z_buffer.exe

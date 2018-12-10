@@ -1,0 +1,6 @@
+#include "main.h"
+int main(int argc, char** argv)
+{
+	OpenglFunc(argc, argv);
+	return 0;
+}
