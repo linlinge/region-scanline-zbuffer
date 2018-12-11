@@ -4,15 +4,14 @@
 #include "load_obj.h"
 #include <algorithm>
 #define IS_SINGULAR(a,b,c)  (((a>b)&&(a>c)) || ((a<b)&&(a<c)))
-#define IS_IN(x1,y1,x2,y2,x3,y3)  (((x2-x1)*(y3-y1)-(y1-y2)*(x3-x1))<0)
+#define IS_IN(x1,y1,x2,y2,x3,y3)  (((x2-x1)*(y3-y1)+(y1-y2)*(x3-x1))*(y2-y1)/abs(y2-y1)<0)
 
 using namespace std;
 
-enum status {in,singular,out};
+enum status {singular=0,in=-1,out=1};
 class bunch
 {
 public:
-
 	//IPL 
 	int faces_id;	
 	

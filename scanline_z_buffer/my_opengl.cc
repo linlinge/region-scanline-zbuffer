@@ -9,19 +9,40 @@ using namespace glh;
 
 glut_simple_mouse_interactor object;
 Vector2D g_vector2D = { -0.2f,0.2f };
+Buffer buf;
+
+Buffer::Buffer()
+{
+	for (int i= 0; i< ROWS; i++)
+	{
+		float color = S2N(i) / 2.0 + 0.5;
+		Color3f color_temp;
+		color_temp.r = pow(color, 2);
+		color_temp.g = color;
+		color_temp.b = color;
+
+		frame_buffer_[i].r = color_temp.r;
+		frame_buffer_[i].g = color_temp.g;
+		frame_buffer_[i].b = color_temp.b;
+
+	}
+	//memset(z_buffer_, 0, sizeof(float)*ROWS*COLS);
+}
+
 
 
 void OpenglFunc(int argc, char** argv)
 {
 	clock_t start, stop;
 	start = clock();
-	obj1.Init("./bunny.obj");
+	obj1.Init("./dataset/duck.obj");
 	stop = clock();
 	cout << (stop - start) / 1000.00 << "s" << endl;
 
+
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGBA | GLUT_STENCIL);
-	glutInitWindowSize(WIDTH,HEIGHT);			//set window size
+	glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);			//set window size
 	glutInitWindowPosition(50, 50);		//set window position
 	glutCreateWindow(obj1.filename.data());		//window name
 	glutDisplayFunc(DisplayFunc);//屏幕显示的回调函数
@@ -35,6 +56,7 @@ void OpenglFunc(int argc, char** argv)
 }
 
 
+
 void DisplayFunc()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	//clear color buffer
@@ -44,19 +66,13 @@ void DisplayFunc()
 	glClearColor(0.6f, 0.6f, 0.6f, 0.1);	//can set the background
 
 	float color = 0.0f;
-	glBegin(GL_POINTS);
+	glBegin(GL_LINES);
 	//for (float posY = -1.0f; posY <= 1.0f; posY += 0.001f)
-	for (float posY =S_MIN; posY <= S_MAX; posY += DY)
-	{
-		//color += 0.0005f;
-		color = posY / 2.0 + 0.5;		
-		//设置点颜色
-		glColor3f(pow(color, 2), color, color); //设置点颜色
-		for (float posX = 1.0f; posX >= -1.0f; posX -= 0.001f)
-		{
-			//绘制点
-			glVertex2f(posX, posY);
-		}
+	for (int i=0;i<ROWS;i++)
+	{	
+		glColor3f(buf.frame_buffer_[i].r, buf.frame_buffer_[i].g, buf.frame_buffer_[i].b);
+		glVertex2f(-1,S2N(i));
+		glVertex2f(1,S2N(i));
 	}
 	glEnd();
 
@@ -70,7 +86,7 @@ void DisplayFunc()
 	//	float new_x = cos(sign_flag)*obj1.points_[i].x - sin(sign_flag)*obj1.points_[i].y;
 	//	float new_y = sin(sign_flag)*obj1.points_[i].x + cos(sign_flag)*obj1.points_[i].y;
 
-	//	glVertex2f(new_x, new_y);
+	//	glVertex2f(new_x/obj1.scale_current_, new_y/obj1.scale_current_);
 	//	glEnd();
 	//}
 
@@ -232,4 +248,14 @@ void PassiveMotionFunc(int x, int y)
 	//x,y  鼠标的像素点坐标（以窗口的左上角为原点的坐标系）
 	//鼠标移动的坐标
 
+}
+
+
+int N2S(float data,float scale)
+{
+	return ((data+ 1)*ROWS / 2);
+}
+float S2N(int data,float scale)
+{
+	return	(2.0 / ROWS * data - 1);
 }

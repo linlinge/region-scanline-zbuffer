@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 using namespace std;
 
 class Vertex3f {
@@ -26,7 +27,12 @@ public:
 };
 
 class Obj {
+	float scale = 1.5;
 public:
+	float max_xyz_;
+	float scale_current_;
+
+
 	string filename;
 	vector<Vertex3f> points_;
 	vector<TrianglePatch> faces_;

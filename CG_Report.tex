@@ -66,7 +66,7 @@
 \section{预备知识}
 \subsection{$obj$文件}
 \bm{顶点的表示：}顶点以$v$开头后面跟着该顶点的$x,y,z$三轴坐标，示例如下
-$$e.g. \hspace{15pt} v\hspace{3pt} -57.408021\hspace{3pt}196.143694\hspace{3pt}2.816352$$
+$$e.g. \hspace{15pt} v\hspace{5pt} -57.408021\hspace{5pt}196.143694\hspace{5pt}2.816352$$
 
 \bm{纹理坐标的表示：}纹理坐标以$vt$开头。
 $$format.\hspace{15pt} vt \hspace{5pt}tu \hspace{5pt} tv$$
@@ -74,10 +74,51 @@ $$format.\hspace{15pt} vt \hspace{5pt}tu \hspace{5pt} tv$$
 \bm{法向量的表示：}法向量的表示以$vn$开头。
 $$format.\hspace{15pt} vn \hspace{5pt} nx\hspace{5pt} ny \hspace{5pt} nz$$
 
-\bm{面的表示：}面以$f$开头后面分别跟着面的顶点、纹理坐标、法向量的索引，后面包含三组索引构成一个面，如下所示
-$$format.\hspace{15pt} f \hspace{5pt} Vertex_1/Texture_1/Normal_1 \hspace{5pt} Vertex_2/Texture_2/Normal_2 \hspace{5pt} Vertex_3/Texture_3/Normal_3$$
-\subsection{OpenGL工程的搭建}
+\bm{面的表示：}面以$f$开头，代表”face”的意识，格式为“f 顶点索引 / 纹理坐标索引 / 顶点法向量索引”，如下所示
+$$format.\hspace{15pt} f \hspace{5pt} v/vt/vn \hspace{5pt} v/vt/vn \hspace{5pt} v/vt/vn$$
+$$e.g.\hspace{15pt} f \hspace{5pt} 1/1/1 \hspace{5pt} 2/2/2 \hspace{5pt} 3/3/3$$
+\subsection{OpenGL预备知识}
+\subsubsection{OpenGL的坐标系}
+OpenGL中常用的坐标系有局部坐标系、世界坐标系、视点坐标系、投影坐标系、规格化设备坐标系和屏幕坐标系。其中规格化设备坐标系$O_dX_dY_dZ_d$的坐标范围为$\{x,y,z \in [-1,1]\}$，它以创建的窗口的中心为原点$O_d$，从左向右为$X_d$轴正方向，从下往上为$Y_d$轴正方向。屏幕坐标系$O_sX_sY_s$以屏幕左上角为坐标原点，从左往右为$X_s$轴正方向，从上往下为$Y_s$轴正方向。
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{coordinate.png}
+\caption{常用坐标系变换}
+\end{center}
+\end{figure}
 
+
+\subsubsection{OpenGL工程的搭建}
+OpenGL是一种跨平台的图形渲染编程接口，下面总结了搭建OpenGL工程的过程。
+\begin{lstlisting}
+void OpenGLFunc(int argc, char** argv)
+{
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGBA | GLUT_STENCIL);
+	glutInitWindowSize(800, 600);		//set window size
+	glutInitWindowPosition(100, 150);	//set window position
+	glutCreateWindow("Display");		//window name
+	glutDisplayFunc(DisplayFunc);		//call self defined display function
+	glutIdleFunc(IdleFunc);			//call self-defined idle function
+	glutKeyboardFunc(KeyboardFunc);	//call self-defined keyboard function
+	glutSpecialFunc(SpecialFunc);		//call self-defined special function
+	glutMouseFunc(MouseFunc);		//call self-defined mouse function
+	glutMotionFunc(MotionFunc);		//call self-defined mouse motion function
+	glutPassiveMotionFunc(PassiveMotionFunc);//call self-defined passive mouse motion function
+	glutMainLoop();
+}
+\end{lstlisting}
+
+上述代码是使得OpenGL程序能够正常运行的一个模板，该段程序为OpenGL产生的窗口设置回调函数：显示回调函数、空闲回调函数、键盘回调函数、特殊键回调函数，鼠标回调函数、鼠标按下移动回调函数和鼠标移动回调函数，他们分别定义在如下所示的函数中：
+\begin{lstlisting}
+	void DisplayFunc(...){...}
+	void IdelFunc(...){...}
+	void KeyboardFunc(...){...}
+	void SpecialFunc(...){...}
+	void MouseFunc(...){...}
+	void MotionFunc(...){...}
+	void PassiveMotionFunc(...){...}
+\end{lstlisting}
 
 \section{数据结构}
 \begin{itemize}
@@ -118,38 +159,54 @@ $$format.\hspace{15pt} f \hspace{5pt} Vertex_1/Texture_1/Normal_1 \hspace{5pt} V
 
 \section{算法}
 加载文件$\to$获取深度值$\to$消隐算法
-
-\section{实验结果}
-本次实验的
-
-$$a=(y_1*z_2 - y_2*z_1 - y_1*z_3+ y_3*z_1+ y_2*z_3- y_3*z_2)$$
-$$b=y*(- x_1*z_2 + x_2*z_1+ x_1*z_3- x_3*z_1- x_2*z_3+ x_3*z_2)$$
-$$c=(x_1*y_2  - x_2*y_1- x_1*y_3 + x_3*y_1+ x_2*y_3- x_3*y_2)$$
-$$d=- x_1*y_2*z_3 + x_1*y_3*z_2 + x_2*y_1*z_3 - x_2*y_3*z_1 - x_3*y_1*z_2 + x_3*y_2*z_1$$
-
-
-\section{in和out的讨论}
+\subsection{扫描线中in和out的讨论}
+\subsubsection{in和out的判断}
 如下图所示是线段$P_1P_2$为in状态的情况，假设$P_1,P_2,P_3$点对应的坐标分别为$(x_1,y_1),(x_2,y_2),(x_3,y_3)$。则线段$P_1P_2$的斜率为$$k=\frac{y_1-y_2}{x_1-x_2}$$
 而线段$P_1P_2$对应的直线方程为：
 $$\frac{y-y_1}{y_2-y_1}=\frac{x-x_1}{x_2-x_1}$$
 令
 $$f(x,y)=\frac{y-y_1}{y_2-y_1}-\frac{x-x_1}{x_2-x_1}$$
 则当满足如下公式时则为in状态
-$$kf(x_3,y_3)<0$$
+$$sign(y_2-y_1)kf(x_3,y_3)<0$$
 既
-$$(x_2-x_1)(y_3-y_1)-(y_1-y_2)(x_3-x_1)<0$$
+$$(x_2-x_1)(y_3-y_1)+(y_1-y_2)(x_3-x_1)<0$$
 \begin{figure}[H]
 \begin{center}
 \begin{minipage}[t]{0.45\linewidth}
-\includegraphics[scale=0.7]{check_in_or_out1.png}
+%\includegraphics[scale=0.7]{check_in_or_out1.png}
 \caption{$f(x_3,y_3)>0,k<0$}
 \end{minipage}
 \begin{minipage}[t]{0.45\linewidth}
-\includegraphics[scale=0.7]{check_in_or_out2.png}
+%\includegraphics[scale=0.7]{check_in_or_out2.png}
 \caption{$f(x_3,y_3)<0,k>0$}
 \end{minipage}
 \end{center}
-
 \end{figure}
+
+\subsubsection{in和out特点}
+\begin{itemize}
+\item{in和out的个数必须对应}
+\end{itemize}
+
+\section{实验结果}
+\subsection{实验环境}
+本次实验的环境如下：
+\begin{table}[H]
+\caption{环境参数}
+\begin{center}
+\begin{tabular}{ll}
+\toprule  %添加表格头部粗线
+& 参数\\
+\midrule  %添加表格中横线
+System& Windows 10 64bit \\
+CPU& Intel(R) Core(TM) i5-4590 CPU @3.30GHz 3.3GHz（4核）\\
+RAM& 16GB\\
+GPU& GeForce GTX 960 (2GB显存)\\
+\bottomrule %添加表格底部粗线
+\end{tabular}
+\end{center}
+\end{table}
+\subsection{程序分析}
+本次使用的是称为$bunny.obj$的文件，该文件中包含了$v$和$f$开头的数据，代码中$load\_obj.h$和$load\_obj.cpp$两个文件定义了加载$obj$文件的方法。
 
 \end{document}
