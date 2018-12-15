@@ -1,5 +1,6 @@
 #include "load_obj.h"
 #include "my_opengl.h"
+
 Obj obj1;
 
 Obj::Obj(string filename) {
@@ -162,13 +163,10 @@ bool Obj::LoadObjFile() {
 
 		if (s == "v")
 		{
-			Vertex3f p;
+			Vec3f p;
 			p.x = atof(s1.c_str());
 			p.y = atof(s2.c_str());
 			p.z = atof(s3.c_str());
-			max_xyz_ = max_xyz_ > abs(p.x) ? max_xyz_ : abs(p.x);
-			max_xyz_ = max_xyz_ > abs(p.y) ? max_xyz_ : abs(p.y);
-			max_xyz_ = max_xyz_ > abs(p.z) ? max_xyz_ : abs(p.z);
 			points_.push_back(p);
 		}
 		else if (s == "f")
@@ -194,31 +192,31 @@ bool Obj::LoadObjFile() {
 			tp.id1 = id1;
 			tp.id2 = id2;
 			tp.id3 = id3;
-			tp.norm_x1 = points_[id1].x;
-			tp.norm_x2 = points_[id2].x;
-			tp.norm_x3 = points_[id3].x;
-			tp.norm_y1 = points_[id1].y;
-			tp.norm_y2 = points_[id2].y;
-			tp.norm_y3 = points_[id3].y;
-			tp.norm_z1 = points_[id1].z;
-			tp.norm_z2 = points_[id2].z;
-			tp.norm_z3 = points_[id3].z;
-
-			tp.norm_kxy12 = (points_[id1].y - points_[id2].y) / (points_[id1].x - points_[id2].x);
-			tp.norm_kxy13 = (points_[id1].y - points_[id3].y) / (points_[id1].x - points_[id3].x);
-			tp.norm_kxy23 = (points_[id2].y - points_[id3].y) / (points_[id2].x - points_[id3].x);
-
-			tp.norm_kyz12 = (points_[id1].z - points_[id2].z) / (points_[id1].y - points_[id2].y);
-			tp.norm_kyz13 = (points_[id1].z - points_[id3].z) / (points_[id1].y - points_[id3].y);
-			tp.norm_kyz23 = (points_[id2].z - points_[id3].z) / (points_[id2].y - points_[id3].y);
-
-			faces_.push_back(tp);
-			
+			faces_.push_back(tp);			
 		}
 
 	}
 
-	scale_current_ = max_xyz_ * scale;
+	//cacluate initial scale
+	Init();
 	return true;
+}
 
+
+void Obj::Init()
+{
+	float max_radius = 0;
+	for (auto &p : points_)
+	{
+		float r = centre_.DistanceXY(p);
+		max_radius = max_radius > r ? max_radius : r;
+	}
+
+	// coordnite_source -> coordinate_world -> coordinate_screen
+	for (auto &p : points_)
+	{		
+		p.x = W2S(p.x / max_radius);
+		p.y = W2S(p.y / max_radius);
+		p.z = W2S(p.z / max_radius);
+	}
 }

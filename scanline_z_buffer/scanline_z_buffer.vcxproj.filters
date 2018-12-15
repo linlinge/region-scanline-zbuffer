@@ -24,7 +24,7 @@
     <ClCompile Include="load_obj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="region_subdivision.cpp">
+    <ClCompile Include="area_scan_line.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,10 +35,10 @@
     <ClInclude Include="load_obj.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="main.h">
+    <ClInclude Include="main.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="region_subdivision.h">
+    <ClInclude Include="area_scan_line.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

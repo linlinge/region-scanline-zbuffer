@@ -2,29 +2,29 @@
 #include <math.h>
 #include <GL/glh_glut.h>
 #include <time.h>
-#include "region_subdivision.h"
-
-
+#include "area_scan_line.h"
+#include "load_obj.h"
+#include "main.hpp"
 using namespace glh;
-
 glut_simple_mouse_interactor object;
-Vector2D g_vector2D = { -0.2f,0.2f };
-Buffer buf;
+Vec3f  frame_buffer[HEIGHT];
+float y_world[HEIGHT];
 
-Buffer::Buffer()
+void Init()
 {
-	for (int i= 0; i< ROWS; i++)
+	for (int i= 0; i< HEIGHT; i++)
 	{
-		float color = S2N(i) / 2.0 + 0.5;
-		Color3f color_temp;
+		float color = S2W(i) / 2.0 + 0.5;
+		Vec3f color_temp;
 		color_temp.r = pow(color, 2);
 		color_temp.g = color;
 		color_temp.b = color;
 
-		frame_buffer_[i].r = color_temp.r;
-		frame_buffer_[i].g = color_temp.g;
-		frame_buffer_[i].b = color_temp.b;
+		frame_buffer[i].r = color_temp.r;
+		frame_buffer[i].g = color_temp.g;
+		frame_buffer[i].b = color_temp.b;
 
+		y_world[i] = S2W(i);
 	}
 	//memset(z_buffer_, 0, sizeof(float)*ROWS*COLS);
 }
@@ -33,16 +33,14 @@ Buffer::Buffer()
 
 void OpenglFunc(int argc, char** argv)
 {
-	clock_t start, stop;
-	start = clock();
-	obj1.Init("./dataset/duck.obj");
-	stop = clock();
-	cout << (stop - start) / 1000.00 << "s" << endl;
-
+	// Initial Area
+	obj1.Init("./dataset/test1.obj");
+	//scan_lines.BuildTables();
+	Init();
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGBA | GLUT_STENCIL);
-	glutInitWindowSize(WINDOW_WIDTH,WINDOW_HEIGHT);			//set window size
+	glutInitWindowSize(WIDTH,HEIGHT);			//set window size
 	glutInitWindowPosition(50, 50);		//set window position
 	glutCreateWindow(obj1.filename.data());		//window name
 	glutDisplayFunc(DisplayFunc);//屏幕显示的回调函数
@@ -67,44 +65,42 @@ void DisplayFunc()
 
 	float color = 0.0f;
 	glBegin(GL_LINES);
-	//for (float posY = -1.0f; posY <= 1.0f; posY += 0.001f)
-	for (int i=0;i<ROWS;i++)
+	for (int i=0;i<HEIGHT;i++)
 	{	
-		glColor3f(buf.frame_buffer_[i].r, buf.frame_buffer_[i].g, buf.frame_buffer_[i].b);
-		glVertex2f(-1,S2N(i));
-		glVertex2f(1,S2N(i));
+		glColor3f(frame_buffer[i].r, frame_buffer[i].g, frame_buffer[i].b);
+		glVertex2f(-1,y_world[i]);
+		glVertex2f(1,y_world[i]);
 	}
 	glEnd();
 
-	scan_lines.Init();
-	scan_lines.Algorithm();
+	scan_lines.BuildTables();
+	scan_lines.Render();
 	
 	//for (int i = 0; i < obj1.points_.size(); i++)
 	//{
 	//	glBegin(GL_POINTS);
 
-	//	float new_x = cos(sign_flag)*obj1.points_[i].x - sin(sign_flag)*obj1.points_[i].y;
-	//	float new_y = sin(sign_flag)*obj1.points_[i].x + cos(sign_flag)*obj1.points_[i].y;
+	//	float new_x = cos(sign_flag)*obj1.points_[i].ToWorldX() - sin(sign_flag)*obj1.points_[i].ToWorldY();
+	//	float new_y = sin(sign_flag)*obj1.points_[i].ToWorldX() + cos(sign_flag)*obj1.points_[i].ToWorldY();
 
-	//	glVertex2f(new_x/obj1.scale_current_, new_y/obj1.scale_current_);
+	//	glVertex2f(new_x*obj1.scale_, new_y*obj1.scale_);
 	//	glEnd();
 	//}
 
-	//for (int i = 0; i < obj1.faces_.size(); i++)
-	//{
-	//	
-	//	glBegin(GL_TRIANGLES);
-	//	int id1 = obj1.faces_[i].id1;
-	//	int id2 = obj1.faces_[i].id2;
-	//	int id3 = obj1.faces_[i].id3;
+	/*Vec3f light_source(500,500,500);
+	for (auto & face : obj1.faces_)
+	{		
+		glBegin(GL_TRIANGLES);
+		int id1 = face.id1;
+		int id2 = face.id2;
+		int id3 = face.id3;
+		glColor3f(0, 0, light_source.Distance(obj1.points_[id1])/500.0);
 
-	//	glColor3f(obj1.points_[id1].z/2.0+0.5, 0,0);
-
-	//	glVertex2f(obj1.points_[id1].x,obj1.points_[id1].y);
-	//	glVertex2f(obj1.points_[id2].x, obj1.points_[id2].y);
-	//	glVertex2f(obj1.points_[id3].x, obj1.points_[id3].y);
-	//	glEnd();
-	//}
+		glVertex2f(obj1.points_[id1].ToWorldX(), obj1.points_[id1].ToWorldY());
+		glVertex2f(obj1.points_[id2].ToWorldX(), obj1.points_[id2].ToWorldY());
+		glVertex2f(obj1.points_[id3].ToWorldX(), obj1.points_[id3].ToWorldY());
+		glEnd();
+	}*/
 
 	glutSwapBuffers();	//swap buffer
 }
@@ -122,29 +118,35 @@ void KeyboardFunc(unsigned char Key, int x, int y)
 {
 	if (Key == 'w' || Key == 'W')
 	{
-		if (g_vector2D.fY < 1.0f)//界限判定
-		{
-			g_vector2D.fY += 0.05f;
-			cout << "w" << endl;
-		}
+
 	}
 
 	if (Key == 's' || Key == 'S')
 	{
-		if (g_vector2D.fY - 0.4f > -1.0f)//界限判定
-			g_vector2D.fY -= 0.05f;
+
 	}
 
 	if (Key == 'a' || Key == 'A')
 	{
-		if (g_vector2D.fX > -1.0f)//界限判定
-			g_vector2D.fX -= 0.05f;
+		sign_flag += 0.1;
 	}
 
 	if (Key == 'd' || Key == 'D')
 	{
-		if (g_vector2D.fX + 0.4f < 1.0f)//界限判定
-			g_vector2D.fX += 0.05f;
+		sign_flag -= 0.1;
+	}
+
+	//zoom in
+	if (Key == 'i' || Key == 'I')
+	{
+		//if(obj1.scale_<=0.9)
+			obj1.scale_ += 0.01;
+	}
+
+	if (Key == 'o' || Key == 'O')
+	{
+		if(obj1.scale_>0.01)
+			obj1.scale_ -= 0.01;
 	}
 }
 //F1~F12、控制键检测
@@ -152,35 +154,33 @@ void SpecialFunc(int Key, int x, int y)
 {
 	if (Key == GLUT_KEY_UP)
 	{
-		if (g_vector2D.fY < 1.0f)//界限判定
-			g_vector2D.fY += 0.05f;
+
 	}
 
 	if (Key == GLUT_KEY_DOWN)
 	{
-		if (g_vector2D.fY - 0.4f > -1.0f)//界限判定
-			g_vector2D.fY -= 0.05f;
+
 	}
 
 	if (Key == GLUT_KEY_LEFT)
 	{
-		if (g_vector2D.fX > -1.0f)//界限判定
-			g_vector2D.fX -= 0.05f;
+
 	}
 
 	if (Key == GLUT_KEY_RIGHT)
 	{
-		if (g_vector2D.fX + 0.4f < 1.0f)//界限判定
-			g_vector2D.fX += 0.05f;
+
 	}
 }
 //鼠标检测
+//按下或者释放才能触发
 void MouseFunc(int button, int state, int x, int y)
 {
 	//button  鼠标按键 0 -- 左键    1 -- 中键   2 -- 右键
 	//state  鼠标状态  0 -- 按下  1 -- 抬起
 	//x,y  鼠标的像素点坐标（以窗口的左上角为原点的坐标系）
 	//std::cout << "鼠标的坐标：x = " << x << " ,y = " << y << std::endl;
+
 
 	if (button == 0)
 	{
@@ -205,6 +205,8 @@ void MouseFunc(int button, int state, int x, int y)
 		{
 			//鼠标中键抬起
 		}
+
+
 	}
 	if (button == 2)
 	{
@@ -221,24 +223,12 @@ void MouseFunc(int button, int state, int x, int y)
 	}
 }
 //鼠标按着拖动
-int old_x;
 float sign_flag = 0;
 void MotionFunc(int x, int y)
 {
 	//x,y  鼠标的像素点坐标（以窗口的左上角为原点的坐标系）
 	//鼠标按着拖动的坐标
 
-	int temp = x - old_x;
-	if (temp > 0)
-	{
-		sign_flag += 0.1;
-	}
-	else
-	{
-		sign_flag -= 0.1;
-	}
-
-	old_x = x;
 
 
 }
@@ -251,11 +241,3 @@ void PassiveMotionFunc(int x, int y)
 }
 
 
-int N2S(float data,float scale)
-{
-	return ((data+ 1)*ROWS / 2);
-}
-float S2N(int data,float scale)
-{
-	return	(2.0 / ROWS * data - 1);
-}

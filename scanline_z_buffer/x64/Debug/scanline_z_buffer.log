@@ -1,8 +1,4 @@
 ﻿  my_opengl.cc
   Note: including lib: glut32.lib
   
-my_opengl.obj : error LNK2019: unresolved external symbol "float __cdecl S2N(int)" (?S2N@@YAMH@Z) referenced in function "public: __cdecl Buffer::Buffer(void)" (??0Buffer@@QEAA@XZ)
-region_subdivision.obj : error LNK2001: unresolved external symbol "float __cdecl S2N(int)" (?S2N@@YAMH@Z)
-region_subdivision.obj : error LNK2019: unresolved external symbol "int __cdecl N2S(float)" (?N2S@@YAHM@Z) referenced in function "public: void __cdecl ScanLines::Init(void)" (?Init@ScanLines@@QEAAXXZ)
-.\lib\glut32.lib : warning LNK4272: library machine type 'x86' conflicts with target machine type 'x64'
-E:\region-scanline-zbuffer\x64\Debug\scanline_z_buffer.exe : fatal error LNK1120: 2 unresolved externals
+  scanline_z_buffer.vcxproj -> E:\ZJU_LESSON\CG\scanline_z_buffer\x64\Debug\scanline_z_buffer.exe
