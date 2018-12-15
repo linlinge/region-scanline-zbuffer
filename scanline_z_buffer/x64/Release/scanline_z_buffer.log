@@ -1,9 +1,9 @@
-﻿  my_opengl.cc
+﻿  area_scan_line.cpp
   Note: including lib: glut32.lib
   
   Generating code
-  4 of 781 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  30 of 795 functions ( 3.8%) were compiled, the rest were copied from previous compilation.
+    28 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  scanline_z_buffer.vcxproj -> E:\ZJU_LESSON\CG\scanline_z_buffer\x64\Release\scanline_z_buffer.exe
+  scanline_z_buffer.vcxproj -> E:\region-scanline-zbuffer\x64\Release\scanline_z_buffer.exe

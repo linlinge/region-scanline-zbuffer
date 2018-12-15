@@ -10,6 +10,7 @@ glut_simple_mouse_interactor object;
 Vec3f  frame_buffer[HEIGHT];
 float y_world[HEIGHT];
 
+
 void Init()
 {
 	for (int i= 0; i< HEIGHT; i++)
@@ -34,8 +35,7 @@ void Init()
 void OpenglFunc(int argc, char** argv)
 {
 	// Initial Area
-	obj1.Init("./dataset/bunny.obj");
-	//scan_lines.BuildTables();
+	obj1.Init("./dataset/duck.obj");
 	Init();
 
 	glutInit(&argc, argv);
@@ -68,8 +68,9 @@ void DisplayFunc()
 	for (int i=0;i<HEIGHT;i++)
 	{	
 		glColor3f(frame_buffer[i].r, frame_buffer[i].g, frame_buffer[i].b);
-		/*if (i == 525)
-			glColor3f(255, 255, 255);*/
+		if (i == 425)
+			glColor3f(255, 255, 255);
+
 		glVertex2f(-1,y_world[i]);
 		glVertex2f(1,y_world[i]);
 	}
@@ -130,22 +131,23 @@ void KeyboardFunc(unsigned char Key, int x, int y)
 
 	if (Key == 'a' || Key == 'A')
 	{
-		sign_flag += 0.01;
+		/*sign_flag += 0.01;
 		for (auto &point : obj1.points_)
 		{
-			point.x = cos(sign_flag)*point.x - sin(sign_flag)*point.y;
-		}
+			point.x = cos(sign_flag)*(point.x - obj1.barycentre_.x) - sin(sign_flag)*(point.y - obj1.barycentre_.y) + obj1.barycentre_.x;
+			point.y = cos(sign_flag)*(point.x - obj1.barycentre_.x) + cos(sign_flag)*(point.y - obj1.barycentre_.y) + obj1.barycentre_.y;
+		}*/
 			
 	}
 
 	if (Key == 'd' || Key == 'D')
 	{
-		sign_flag -= 0.01;
+		/*sign_flag -= 0.01;
 		for (auto &point : obj1.points_)
 		{
-			point.x = cos(sign_flag)*point.x + cos(sign_flag)*point.y;
-		}
-		 //= sin(sign_flag)*obj1.points_[i].ToWorldX() + cos(sign_flag)*obj1.points_[i].ToWorldY();
+			point.x = cos(sign_flag)*(point.x - obj1.barycentre_.x) - sin(sign_flag)*(point.y - obj1.barycentre_.y) + obj1.barycentre_.x;
+			point.y = cos(sign_flag)*(point.x - obj1.barycentre_.x) + cos(sign_flag)*(point.y - obj1.barycentre_.y) + obj1.barycentre_.y;
+		}*/
 	}
 
 	//zoom in

@@ -18,6 +18,7 @@ class Obj {
 public:
 	float scale_ = 0.6;
 	Vec3f centre_;
+	Vec3f barycentre_;
 
 	string filename;
 	vector<Vec3f> points_;

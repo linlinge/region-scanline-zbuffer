@@ -9,27 +9,27 @@ void test_fun()
 	// tri1
 	//obj1.points_[0].x = 100; 
 	//obj1.points_[0].y = 100;
-	//obj1.points_[0].z = 300;
+	//obj1.points_[0].z = 100;
 
 	//obj1.points_[1].x = 50;
 	//obj1.points_[1].y = 200;
-	//obj1.points_[1].z = 300;
+	//obj1.points_[1].z = 100;
 
 	//obj1.points_[2].x = 250;
 	//obj1.points_[2].y = 200;
-	//obj1.points_[2].z = 300;
+	//obj1.points_[2].z = 100;
 
-	obj1.points_[0].x = 150;
+	obj1.points_[0].x = 100;
 	obj1.points_[0].y = 100;
-	obj1.points_[0].z = 100;
+	obj1.points_[0].z = 300;
 
-	obj1.points_[1].x = 0;
-	obj1.points_[1].y = 100;
-	obj1.points_[1].z = 100;
+	obj1.points_[1].x = 50;
+	obj1.points_[1].y = 200;
+	obj1.points_[1].z = 300;
 
-	obj1.points_[2].x = 0;
-	obj1.points_[2].y = 250;
-	obj1.points_[2].z = 100;
+	obj1.points_[2].x = 150;
+	obj1.points_[2].y = 200;
+	obj1.points_[2].z = 300;
 
 	// tri2
 	obj1.points_[3].x = 200;
@@ -199,7 +199,9 @@ void AreaScanLines::Render()
 	AET_.clear();
 	for (int i = 0; i < HEIGHT; i++)
 	{
-		
+		if (i == 425)
+			i = 425;
+
 		// insert to AET
 		if (ET_[i].size() != 0)
 		{
@@ -248,7 +250,7 @@ void AreaScanLines::Render()
 				// Define
 				EdgeElement &edge1 = AET_[idx.back()];
 				EdgeElement &edge2 = AET_[j];
-				if (i == 525)
+				if (i == 425)
 				{
 					ofstream f;
 					f.open("../1.txt");
@@ -263,7 +265,7 @@ void AreaScanLines::Render()
 						obj1.points_[id3].x << " " << obj1.points_[id3].y << " " << obj1.points_[id3].z << endl;
 					}
 					f.close();
-					i = 525;
+					i = 425;
 				}
 					
 

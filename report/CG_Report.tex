@@ -57,7 +57,7 @@
 \setlength\topmargin{(\paperheight-\textheight -\headheight-\headsep-\footskip)/2 - 1.5in}
 
 
-\title{计算机图形学 \hspace{2pt}—\hspace{2pt} \begin{large}扫描线Z-Buffer算法 \end{large} }
+\title{计算机图形学 \hspace{2pt}\hspace{2pt} \begin{large}----- \hspace{2pt} 区域扫描线Z-Buffer算法 \end{large} }
 \author{葛林林}
 \begin{document}
 \maketitle
@@ -66,13 +66,16 @@
 \section{预备知识}
 \subsection{$obj$文件}
 \bm{顶点的表示：}顶点以$v$开头后面跟着该顶点的$x,y,z$三轴坐标，示例如下
+$$format. \hspace{15pt} v\hspace{5pt} x\hspace{5pt}y\hspace{5pt}z$$
 $$e.g. \hspace{15pt} v\hspace{5pt} -57.408021\hspace{5pt}196.143694\hspace{5pt}2.816352$$
 
 \bm{纹理坐标的表示：}纹理坐标以$vt$开头。
 $$format.\hspace{15pt} vt \hspace{5pt}tu \hspace{5pt} tv$$
+$$$$
 
 \bm{法向量的表示：}法向量的表示以$vn$开头。
-$$format.\hspace{15pt} vn \hspace{5pt} nx\hspace{5pt} ny \hspace{5pt} nz$$
+$$format.\hspace{15pt} vn \hspace{5pt} nx \hspace{5pt} ny \hspace{5pt} nz$$
+$$e.g. \hspace{15pt} vn \hspace{5pt} 5.9333 \hspace{5pt} -0.4798 \hspace{5pt} -1.8985$$
 
 \bm{面的表示：}面以$f$开头，代表”face”的意识，格式为“f 顶点索引 / 纹理坐标索引 / 顶点法向量索引”，如下所示
 $$format.\hspace{15pt} f \hspace{5pt} v/vt/vn \hspace{5pt} v/vt/vn \hspace{5pt} v/vt/vn$$
@@ -132,7 +135,7 @@ void OpenGLFunc(int argc, char** argv)
 \end{itemize}
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.6]{structure1.png}
+\includegraphics[scale=0.4]{structure1.png}
 \end{center}
 \caption{分类多边形表}
 \end{figure}
@@ -151,7 +154,7 @@ void OpenGLFunc(int argc, char** argv)
 \end{itemize}
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.5]{structure2.png}
+\includegraphics[scale=0.4]{structure2.png}
 \end{center}
 \caption{分类边表}
 \end{figure}
@@ -188,6 +191,18 @@ $$(x_2-x_1)(y_3-y_1)+(y_1-y_2)(x_3-x_1)<0$$
 \item{in和out的个数必须对应}
 \end{itemize}
 
+\section{测试案例的设计}
+在实际调试过程中会出现很多问题，为了方便调试，设计了如下所示的一些简单实例帮助调试：
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.6]{cases1.png}
+\caption{示意图}
+\includegraphics[scale=0.5]{cases2.png}
+\caption{测试效果}
+\end{center}
+\end{figure}
+
+
 \section{实验结果}
 \subsection{实验环境}
 本次实验的环境如下：
@@ -208,5 +223,10 @@ GPU& GeForce GTX 960 (2GB显存)\\
 \end{table}
 \subsection{程序分析}
 本次使用的是称为$bunny.obj$的文件，该文件中包含了$v$和$f$开头的数据，代码中$load\_obj.h$和$load\_obj.cpp$两个文件定义了加载$obj$文件的方法。
+
+\section{经验总结}
+\begin{itemize}
+\item{用特殊的案例对结果进行测试}
+\end{itemize}
 
 \end{document}
