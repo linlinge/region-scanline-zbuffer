@@ -34,14 +34,14 @@ void Init()
 void OpenglFunc(int argc, char** argv)
 {
 	// Initial Area
-	obj1.Init("./dataset/test1.obj");
+	obj1.Init("./dataset/bunny.obj");
 	//scan_lines.BuildTables();
 	Init();
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGBA | GLUT_STENCIL);
 	glutInitWindowSize(WIDTH,HEIGHT);			//set window size
-	glutInitWindowPosition(50, 50);		//set window position
+	glutInitWindowPosition(550, 550);		//set window position
 	glutCreateWindow(obj1.filename.data());		//window name
 	glutDisplayFunc(DisplayFunc);//屏幕显示的回调函数
 	glutIdleFunc(IdleFunc);//闲置时回调函数（当没有消息时调用）
@@ -68,6 +68,8 @@ void DisplayFunc()
 	for (int i=0;i<HEIGHT;i++)
 	{	
 		glColor3f(frame_buffer[i].r, frame_buffer[i].g, frame_buffer[i].b);
+		/*if (i == 525)
+			glColor3f(255, 255, 255);*/
 		glVertex2f(-1,y_world[i]);
 		glVertex2f(1,y_world[i]);
 	}
@@ -128,12 +130,22 @@ void KeyboardFunc(unsigned char Key, int x, int y)
 
 	if (Key == 'a' || Key == 'A')
 	{
-		sign_flag += 0.1;
+		sign_flag += 0.01;
+		for (auto &point : obj1.points_)
+		{
+			point.x = cos(sign_flag)*point.x - sin(sign_flag)*point.y;
+		}
+			
 	}
 
 	if (Key == 'd' || Key == 'D')
 	{
-		sign_flag -= 0.1;
+		sign_flag -= 0.01;
+		for (auto &point : obj1.points_)
+		{
+			point.x = cos(sign_flag)*point.x + cos(sign_flag)*point.y;
+		}
+		 //= sin(sign_flag)*obj1.points_[i].ToWorldX() + cos(sign_flag)*obj1.points_[i].ToWorldY();
 	}
 
 	//zoom in

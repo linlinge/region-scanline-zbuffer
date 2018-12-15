@@ -47,25 +47,16 @@ void test_fun()
 
 void AreaScanLines::BuildTables()
 {
-	test_fun();
+	//test_fun();
 	PT_.clear();
 	for (auto & edge : ET_)
 	{
 		edge.clear();
 	}
 	PT_.resize(obj1.faces_.size());
-
-	//AET_.clear();
 	//the vertexs have been sorted
 	for (int i=0; i<obj1.faces_.size();i++)
 	{
-		// test
-		// cout << i << " " ;
-		//if (i == 600)
-		//	i = 600;
-
-		//ET_[i].clear();
-
 		// Init 
 		EdgeElement edge_temp,edge_temp1, edge_temp2;
 		PolygonElement polygon_temp;
@@ -257,6 +248,24 @@ void AreaScanLines::Render()
 				// Define
 				EdgeElement &edge1 = AET_[idx.back()];
 				EdgeElement &edge2 = AET_[j];
+				if (i == 525)
+				{
+					ofstream f;
+					f.open("../1.txt");
+					for (auto & edge : AET_)
+					{
+						int &id1 = obj1.faces_[PT_[edge.id].id].id1;
+						int &id2 = obj1.faces_[PT_[edge.id].id].id2;
+						int &id3 = obj1.faces_[PT_[edge.id].id].id3;
+						
+						f << obj1.points_[id1].x << " " << obj1.points_[id1].y << " " << obj1.points_[id1].z <<
+						obj1.points_[id2].x << " " << obj1.points_[id2].y << " " << obj1.points_[id2].z <<
+						obj1.points_[id3].x << " " << obj1.points_[id3].y << " " << obj1.points_[id3].z << endl;
+					}
+					f.close();
+					i = 525;
+				}
+					
 
 				if (edge1.id==edge2.id)
 				// condition1: points in the same plane
@@ -299,11 +308,24 @@ void AreaScanLines::Render()
 			{
 				EdgeElement& edge1 = AET_[idx[j]];
 				EdgeElement& edge2 = AET_[idx[j + 1]];
+
+				// test
+				/*if (i == 525)
+				{
+					for (auto &edge : AET_)
+					{
+						cout << edge.xc << endl;
+					}
+					i = 525;
+				}*/
+					
+				
+
 				// plane1 covered plane2
 				if (edge1.flag == status::in)
 				{
-					if (i == 599)
-						i = 599;
+					if (i==525 && j == 369)
+						j = 369;
 					Vec3f &color_temp = PT_[edge1.id].color;
 					glColor3f(color_temp.r, color_temp.g, color_temp.b);
 					glBegin(GL_LINES);
@@ -315,8 +337,8 @@ void AreaScanLines::Render()
 
 				if (edge1.id != edge2.id && edge1.flag == status::out && edge2.flag == status::out)
 				{
-					if (i == 599)
-						i = 599;
+					if (i == 525 && j == 369)
+						j = 369;
 					Vec3f &color_temp = PT_[edge2.id].color;
 					glColor3f(color_temp.r, color_temp.g, color_temp.b);
 					glBegin(GL_LINES);
