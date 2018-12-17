@@ -10,12 +10,12 @@ glut_simple_mouse_interactor object;
 Vec3f  frame_buffer[HEIGHT];
 float y_world[HEIGHT];
 
-
+ofstream f;
 void Init()
 {
 	for (int i= 0; i< HEIGHT; i++)
 	{
-		float color = S2W(i) / 2.0 + 0.5;
+		float color = S2W(i) / 2.0f + 0.5f;
 		Vec3f color_temp;
 		color_temp.r = pow(color, 2);
 		color_temp.g = color;
@@ -27,21 +27,20 @@ void Init()
 
 		y_world[i] = S2W(i);
 	}
+	f.open("../time.txt");
 	//memset(z_buffer_, 0, sizeof(float)*ROWS*COLS);
 }
-
-
 
 void OpenglFunc(int argc, char** argv)
 {
 	// Initial Area
-	obj1.Init("./dataset/duck.obj");
+	obj1.Init("./dataset/soccerball.obj");
 	Init();
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGBA | GLUT_STENCIL);
 	glutInitWindowSize(WIDTH,HEIGHT);			//set window size
-	glutInitWindowPosition(550, 550);		//set window position
+	glutInitWindowPosition(100, 100);		//set window position
 	glutCreateWindow(obj1.filename.data());		//window name
 	glutDisplayFunc(DisplayFunc);//屏幕显示的回调函数
 	glutIdleFunc(IdleFunc);//闲置时回调函数（当没有消息时调用）
@@ -51,30 +50,39 @@ void OpenglFunc(int argc, char** argv)
 	glutMotionFunc(MotionFunc);//鼠标按着拖动检测
 	glutPassiveMotionFunc(PassiveMotionFunc);//鼠标移动检测
 	glutMainLoop();
+	f.close();
 }
 
 
 
 void DisplayFunc()
 {
+	clock_t t0, t1;
+	t0 = clock();
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	//clear color buffer
 	glDisable(GL_DEPTH_TEST | GL_LIGHTING);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glShadeModel(GL_SMOOTH);
-	glClearColor(0.6f, 0.6f, 0.6f, 0.1);	//can set the background
+	glClearColor(0.6f, 0.6f, 0.6f, 0.1f);	//can set the background
 
 	float color = 0.0f;
 	glBegin(GL_LINES);
 	for (int i=0;i<HEIGHT;i++)
 	{	
 		glColor3f(frame_buffer[i].r, frame_buffer[i].g, frame_buffer[i].b);
-		if (i == 425)
+		if (i == 333)
 			glColor3f(255, 255, 255);
 
-		glVertex2f(-1,y_world[i]);
-		glVertex2f(1,y_world[i]);
+		glVertex2f(-1.0f,y_world[i]);
+		glVertex2f(1.0f,y_world[i]);
 	}
+	glColor3f(255, 0,0);
+	float col = 185.0f;
+	glVertex2f(S2W(col), -1.0f);
+	glVertex2f(S2W(col), 1.0f);
 	glEnd();
+
 
 	scan_lines.BuildTables();
 	scan_lines.Render();
@@ -106,6 +114,12 @@ void DisplayFunc()
 	}*/
 
 	glutSwapBuffers();	//swap buffer
+	t1 = clock();
+	
+	f << (t1 - t0)<<" "<<1000.0f/(t1-t0) << endl;
+	//f.close();
+
+	//cout << 1000.0 / (t1 - t0)<<"fps" << endl;
 }
 
 
@@ -154,13 +168,13 @@ void KeyboardFunc(unsigned char Key, int x, int y)
 	if (Key == 'i' || Key == 'I')
 	{
 		//if(obj1.scale_<=0.9)
-			obj1.scale_ += 0.01;
+			obj1.scale_ += 0.01f;
 	}
 
 	if (Key == 'o' || Key == 'O')
 	{
-		if(obj1.scale_>0.01)
-			obj1.scale_ -= 0.01;
+		if(obj1.scale_>0.01f)
+			obj1.scale_ -= 0.01f;
 	}
 }
 //F1~F12、控制键检测

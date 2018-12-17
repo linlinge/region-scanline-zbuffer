@@ -16,7 +16,7 @@ public:
 class Obj {	
 	void Init();// compute Initial scale
 public:
-	float scale_ = 0.6;
+	float scale_ = 0.6f;
 	Vec3f centre_;
 	Vec3f barycentre_;
 

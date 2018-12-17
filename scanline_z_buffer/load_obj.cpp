@@ -94,10 +94,12 @@ bool Obj::LoadObjFile() {
 
 void Obj::Init()
 {
-	float max_radius = 0;
-	barycentre_.x = 0;
-	barycentre_.y = 0;
-	barycentre_.z = 0;
+	float max_radius = 0.0f;
+	barycentre_.x = 0.0f;
+	barycentre_.y = 0.0f;
+	barycentre_.z = 0.0f;
+
+
 
 	for (auto &p : points_)
 	{
@@ -119,4 +121,13 @@ void Obj::Init()
 		p.y = W2S(p.y / max_radius);
 		p.z = W2S(p.z / max_radius);
 	}
+
+	ofstream f("../test_in_or_out_of_triangle.txt");
+	for (auto & face : faces_)
+	{
+		f << points_[face.id1].x << " " << points_[face.id1].y << " " <<
+			points_[face.id2].x << " " << points_[face.id2].y << " " <<
+			points_[face.id3].x << " " << points_[face.id3].y << endl;
+	}
+	f.close();
 }

@@ -19,30 +19,30 @@ void test_fun()
 	//obj1.points_[2].y = 200;
 	//obj1.points_[2].z = 100;
 
-	obj1.points_[0].x = 100;
-	obj1.points_[0].y = 100;
-	obj1.points_[0].z = 300;
+	obj1.points_[0].x = 100.0f;
+	obj1.points_[0].y = 100.0f;
+	obj1.points_[0].z = 300.0f;
 
-	obj1.points_[1].x = 50;
-	obj1.points_[1].y = 200;
-	obj1.points_[1].z = 300;
+	obj1.points_[1].x = 50.0f;
+	obj1.points_[1].y = 200.0f;
+	obj1.points_[1].z = 300.0f;
 
-	obj1.points_[2].x = 150;
-	obj1.points_[2].y = 200;
-	obj1.points_[2].z = 300;
+	obj1.points_[2].x = 150.0f;
+	obj1.points_[2].y = 200.0f;
+	obj1.points_[2].z = 300.0f;
 
 	// tri2
-	obj1.points_[3].x = 200;
-	obj1.points_[3].y = 100;
-	obj1.points_[3].z = 200;
+	obj1.points_[3].x = 200.0f;
+	obj1.points_[3].y = 100.0f;
+	obj1.points_[3].z = 200.0f;
 
-	obj1.points_[4].x = 50;
-	obj1.points_[4].y = 250;
-	obj1.points_[4].z = 200;
+	obj1.points_[4].x = 50.0f;
+	obj1.points_[4].y = 250.0f;
+	obj1.points_[4].z = 200.0f;
 
-	obj1.points_[5].x = 250;
-	obj1.points_[5].y = 250;
-	obj1.points_[5].z = 200;
+	obj1.points_[5].x = 250.0f;
+	obj1.points_[5].y = 250.0f;
+	obj1.points_[5].z = 200.0f;
 }
 
 void AreaScanLines::BuildTables()
@@ -75,14 +75,22 @@ void AreaScanLines::BuildTables()
 		/// define slope
 		float k = 0;
 
+		// P3
+		edge_temp.x = p3.x;
+		edge_temp.dy = 1;
+		edge_temp.dy_max = 1;
+		edge_temp.id = i;
+		ET_[ROUND(p3.y)].push_back(edge_temp);
+		ET_[ROUND(p3.y)].push_back(edge_temp);
+
 		// P1P2 ->  ET, PT
 		edge_temp.x = p1.x;
 		k = (p1.y - p2.y) / (p1.x - p2.x);
 		if (abs(k) > EPS)
 		{
-			edge_temp.dx = -1 / k;
-			y_min = round(p1.y);
-			y_max = round(p2.y);
+			edge_temp.dx = -1.0f / k;
+			y_min = ROUND(p1.y);
+			y_max = ROUND(p2.y);
 			edge_temp.dy = y_max - y_min ;
 			edge_temp.dy_max = edge_temp.dy;
 			edge_temp.flag = IS_IN(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
@@ -97,18 +105,9 @@ void AreaScanLines::BuildTables()
 			edge_temp1.dy_max = 1; edge_temp2.dy_max = 1;
 			edge_temp1.dy = 1; edge_temp2.dy = 1;
 			edge_temp1.id = i; edge_temp2.id = i;
-			if (p1.x < p2.x)
-			{
-				edge_temp1.flag = status::in;
-				edge_temp2.flag = status::out;
-			}
-			else
-			{
-				edge_temp1.flag = status::out;
-				edge_temp2.flag = status::in;
-			}
-			ET_[(int)round(p1.y)].push_back(edge_temp1);
-			ET_[(int)round(p1.y)].push_back(edge_temp2);
+			/// flag will be determined laterly
+			ET_[ROUND(p1.y)].push_back(edge_temp1);
+			ET_[ROUND(p1.y)].push_back(edge_temp2);
 		}
 
 		// P1P3 -> ET
@@ -116,35 +115,26 @@ void AreaScanLines::BuildTables()
 		k = (p1.y - p3.y) / (p1.x - p3.x);
 		if (abs(k) > EPS)
 		{
-			edge_temp.dx = -1 / k;
-			y_min = round(p1.y);
-			y_max = round(p3.y);
+			edge_temp.dx = -1.0f / k;
+			y_min = ROUND(p1.y);
+			y_max = ROUND(p3.y);
 			edge_temp.dy = y_max - y_min;
 			edge_temp.dy_max = edge_temp.dy;
 			edge_temp.flag = IS_IN(p1.x, p1.y, p3.x, p3.y, p2.x, p2.y);
 			edge_temp.id = i;
 			ET_[y_min].push_back(edge_temp);
 		}
-		// special condition: horizontal line
 		else
+		// horizontal line
 		{
 			edge_temp1.x = p1.x; edge_temp2.x = p3.x;
 			edge_temp1.dx = INT_MAX; edge_temp2.dx = INT_MAX;
 			edge_temp1.dy_max = 1; edge_temp2.dy_max = 1;
 			edge_temp1.dy = 1; edge_temp2.dy = 1;
 			edge_temp1.id = i; edge_temp2.id = i;
-			if (p1.x < p3.x)
-			{
-				edge_temp1.flag = status::in;
-				edge_temp2.flag = status::out;
-			}
-			else
-			{
-				edge_temp1.flag = status::out;
-				edge_temp2.flag = status::in;
-			}
-			ET_[(int)round(p1.y)].push_back(edge_temp1);
-			ET_[(int)round(p1.y)].push_back(edge_temp2);
+			/// flag will be determined laterly
+			ET_[ROUND(p1.y)].push_back(edge_temp1);
+			/// P3 has been added, so no need to added again						
 		}
 
 		// P2P3 -> ET
@@ -152,35 +142,26 @@ void AreaScanLines::BuildTables()
 		k = (p2.y - p3.y) / (p2.x - p3.x);
 		if (abs(k) > EPS)
 		{
-			edge_temp.dx = -1 / k;
-			y_min = round(p2.y);
-			y_max = round(p3.y);
+			edge_temp.dx = -1.0f / k;
+			y_min = ROUND(p2.y);
+			y_max = ROUND(p3.y);
 			edge_temp.dy = y_max - y_min ;
 			edge_temp.dy_max = edge_temp.dy;
 			edge_temp.flag = IS_IN(p2.x, p2.y, p3.x, p3.y, p1.x, p1.y);
 			edge_temp.id = i;
 			ET_[y_min].push_back(edge_temp);
-		}
-		// two edge should be added
+		}		
 		else
+		// horizontal line
 		{
 			edge_temp1.x = p2.x; edge_temp2.x = p3.x;
 			edge_temp1.dx = INT_MAX; edge_temp2.dx = INT_MAX;
 			edge_temp1.dy_max = 1; edge_temp2.dy_max = 1;
 			edge_temp1.dy = 1; edge_temp2.dy = 1;
 			edge_temp1.id = i; edge_temp2.id = i;
-			if (p2.x < p3.x)
-			{
-				edge_temp1.flag = status::in;
-				edge_temp2.flag = status::out;
-			}				
-			else
-			{
-				edge_temp1.flag = status::out;
-				edge_temp2.flag = status::in;
-			}				
-			ET_[(int)round(p2.y)].push_back(edge_temp1);
-			ET_[(int)round(p2.y)].push_back(edge_temp2);
+			/// flag will be determined laterly
+			ET_[ROUND(p2.y)].push_back(edge_temp1);
+			/// P3 has been added, so no need to added again			
 		}
 
 		// build PT
@@ -189,7 +170,10 @@ void AreaScanLines::BuildTables()
 		polygon_temp.c = (p2.x - p1.x)*(p3.y - p1.y) - (p3.x - p1.x)*(p2.y - p1.y);
 		polygon_temp.d = -polygon_temp.a*p1.x - polygon_temp.b*p1.y - polygon_temp.c*p1.z;
 		polygon_temp.id = i;
-		polygon_temp.color = Vec3f(0,0, 0.5+0.5*(S2W(p1.z)));
+		//polygon_temp.color = Vec3f(0,0, 0.5+0.5*(S2W(p1.z)));
+		Vec3f light_source(100.0f, 100.0f, 500.0f);
+		float dist = p1.Distance(light_source)/500.0f;
+		polygon_temp.color = Vec3f(0.0f,dist, 0.0f);
 		PT_[i] = polygon_temp;
 	}	
 }
@@ -199,9 +183,6 @@ void AreaScanLines::Render()
 	AET_.clear();
 	for (int i = 0; i < HEIGHT; i++)
 	{
-		if (i == 425)
-			i = 425;
-
 		// insert to AET
 		if (ET_[i].size() != 0)
 		{
@@ -219,26 +200,28 @@ void AreaScanLines::Render()
 			// sort AET_ with x data
 			sort(AET_.begin(), AET_.end(), [](EdgeElement &e1, EdgeElement &e2) {return e1.xc < e2.xc; });
 
-			// adjust order of in and out
-			for (int j = 0; j < AET_.size()-1; )
-			{
-				EdgeElement& edge1 = AET_[j];
-				EdgeElement& edge2 = AET_[j+1];
-				if (edge1.id==edge2.id &&edge1.xc==edge2.xc)
-				//if (edge1.xc == edge2.xc)
-				{
-					if ( edge1.flag == status::out && edge2.flag == status::in)
-					{
-						EdgeElement temp;
-						edge1.CopyTo(temp);
-						edge2.CopyTo(edge1);
-						temp.CopyTo(edge2);
-					}
+			//if (i == 425)
+			//{
+			//	for (auto & edge : AET_)
+			//	{
+			//		cout << edge.id << " ";
+			//	}
+			//	i = 425;
+			//}							
 
-					j = j + 2;
-					continue;
+			for (int j = 0; j < AET_.size(); j++)
+			{
+				EdgeElement & edge1 = AET_[j];
+				for (int k = j+1; k < AET_.size(); k++)
+				{
+					EdgeElement & edge2 = AET_[k];
+					if (edge1.id == edge2.id)
+					{
+						edge1.flag = status::in;
+						edge2.flag = status::out;
+						continue;
+					}
 				}
-				j++;				
 			}
 
 			// find all solid points
@@ -249,25 +232,7 @@ void AreaScanLines::Render()
 			{
 				// Define
 				EdgeElement &edge1 = AET_[idx.back()];
-				EdgeElement &edge2 = AET_[j];
-				if (i == 425)
-				{
-					ofstream f;
-					f.open("../1.txt");
-					for (auto & edge : AET_)
-					{
-						int &id1 = obj1.faces_[PT_[edge.id].id].id1;
-						int &id2 = obj1.faces_[PT_[edge.id].id].id2;
-						int &id3 = obj1.faces_[PT_[edge.id].id].id3;
-						
-						f << obj1.points_[id1].x << " " << obj1.points_[id1].y << " " << obj1.points_[id1].z <<
-						obj1.points_[id2].x << " " << obj1.points_[id2].y << " " << obj1.points_[id2].z <<
-						obj1.points_[id3].x << " " << obj1.points_[id3].y << " " << obj1.points_[id3].z << endl;
-					}
-					f.close();
-					i = 425;
-				}
-					
+				EdgeElement &edge2 = AET_[j];					
 
 				if (edge1.id==edge2.id)
 				// condition1: points in the same plane
@@ -305,29 +270,27 @@ void AreaScanLines::Render()
 				}				
 			}
 
+			if (i == 333)
+			{
+				ofstream f("../test.txt");
+				
+				for (auto & edge : AET_)
+				{
+					f<< edge.xc <<" "<< edge.id << " "<<edge.flag<<" " <<endl;
+				}
+				f.close();
+				i = 333;
+			}
+
 			// draw
 			for (int j = 0; j < idx.size() -1; j++)
 			{
 				EdgeElement& edge1 = AET_[idx[j]];
-				EdgeElement& edge2 = AET_[idx[j + 1]];
-
-				// test
-				/*if (i == 525)
-				{
-					for (auto &edge : AET_)
-					{
-						cout << edge.xc << endl;
-					}
-					i = 525;
-				}*/
-					
+				EdgeElement& edge2 = AET_[idx[j + 1]];					
 				
-
 				// plane1 covered plane2
 				if (edge1.flag == status::in)
 				{
-					if (i==525 && j == 369)
-						j = 369;
 					Vec3f &color_temp = PT_[edge1.id].color;
 					glColor3f(color_temp.r, color_temp.g, color_temp.b);
 					glBegin(GL_LINES);
@@ -339,8 +302,6 @@ void AreaScanLines::Render()
 
 				if (edge1.id != edge2.id && edge1.flag == status::out && edge2.flag == status::out)
 				{
-					if (i == 525 && j == 369)
-						j = 369;
 					Vec3f &color_temp = PT_[edge2.id].color;
 					glColor3f(color_temp.r, color_temp.g, color_temp.b);
 					glBegin(GL_LINES);
@@ -348,8 +309,7 @@ void AreaScanLines::Render()
 					glVertex2f(S2W(edge2.xc), y_world[i]);
 					glEnd();
 					continue;
-				}
-				
+				}				
 			}
 
 			// update dy and caculate number of dy=0
