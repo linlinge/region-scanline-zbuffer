@@ -1,14 +1,4 @@
-﻿  area_scan_line.cpp
+﻿  my_opengl.cc
   Note: including lib: glut32.lib
   
-  load_obj.cpp
-  Note: including lib: glut32.lib
-  
-  main.cc
-  Note: including lib: glut32.lib
-  
-  my_opengl.cc
-  Note: including lib: glut32.lib
-  
-  Generating Code...
   scanline_z_buffer.vcxproj -> E:\region-scanline-zbuffer\x64\Debug\scanline_z_buffer.exe

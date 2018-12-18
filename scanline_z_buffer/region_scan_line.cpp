@@ -1,4 +1,4 @@
-#include "area_scan_line.h"
+#include "region_scan_line.h"
 #include "load_obj.h"
 #include <math.h>
 AreaScanLines scan_lines;
@@ -170,12 +170,12 @@ void AreaScanLines::BuildTables()
 		polygon_temp.c = (p2.x - p1.x)*(p3.y - p1.y) - (p3.x - p1.x)*(p2.y - p1.y);
 		polygon_temp.d = -polygon_temp.a*p1.x - polygon_temp.b*p1.y - polygon_temp.c*p1.z;
 		polygon_temp.id = i;
-		//polygon_temp.color = Vec3f(0,0, 0.5+0.5*(S2W(p1.z)));
+
 		Vec3f light_source(100.0f, 100.0f, 500.0f);
 		float dist = p1.Distance(light_source)/500.0f;
 		polygon_temp.color = Vec3f(0.0f,dist, 0.0f);
 		PT_[i] = polygon_temp;
-	}	
+	}		
 }
 
 void AreaScanLines::Render()
@@ -200,15 +200,7 @@ void AreaScanLines::Render()
 			// sort AET_ with x data
 			sort(AET_.begin(), AET_.end(), [](EdgeElement &e1, EdgeElement &e2) {return e1.xc < e2.xc; });
 
-			//if (i == 425)
-			//{
-			//	for (auto & edge : AET_)
-			//	{
-			//		cout << edge.id << " ";
-			//	}
-			//	i = 425;
-			//}							
-
+			// adjust in and out
 			for (int j = 0; j < AET_.size(); j++)
 			{
 				EdgeElement & edge1 = AET_[j];
@@ -233,6 +225,12 @@ void AreaScanLines::Render()
 				// Define
 				EdgeElement &edge1 = AET_[idx.back()];
 				EdgeElement &edge2 = AET_[j];					
+
+				if (i == 345 )
+				{
+					i = 345;
+				}
+
 
 				if (edge1.id==edge2.id)
 				// condition1: points in the same plane
@@ -270,17 +268,6 @@ void AreaScanLines::Render()
 				}				
 			}
 
-			if (i == 333)
-			{
-				ofstream f("../test.txt");
-				
-				for (auto & edge : AET_)
-				{
-					f<< edge.xc <<" "<< edge.id << " "<<edge.flag<<" " <<endl;
-				}
-				f.close();
-				i = 333;
-			}
 
 			// draw
 			for (int j = 0; j < idx.size() -1; j++)
@@ -294,8 +281,8 @@ void AreaScanLines::Render()
 					Vec3f &color_temp = PT_[edge1.id].color;
 					glColor3f(color_temp.r, color_temp.g, color_temp.b);
 					glBegin(GL_LINES);
-					glVertex2f(S2W(edge1.xc), y_world[i]);
-					glVertex2f(S2W(edge2.xc), y_world[i]);
+					glVertex2f(X_S2W(edge1.xc, y_world[i]), y_world[i]);
+					glVertex2f(X_S2W(edge2.xc, y_world[i]), y_world[i]);
 					glEnd();
 					continue;
 				}
@@ -305,8 +292,8 @@ void AreaScanLines::Render()
 					Vec3f &color_temp = PT_[edge2.id].color;
 					glColor3f(color_temp.r, color_temp.g, color_temp.b);
 					glBegin(GL_LINES);
-					glVertex2f(S2W(edge1.xc), y_world[i]);
-					glVertex2f(S2W(edge2.xc), y_world[i]);
+					glVertex2f(X_S2W(edge1.xc, y_world[i]), y_world[i]);
+					glVertex2f(X_S2W(edge2.xc, y_world[i]), y_world[i]);
 					glEnd();
 					continue;
 				}				

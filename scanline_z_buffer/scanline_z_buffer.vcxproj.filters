@@ -24,7 +24,7 @@
     <ClCompile Include="load_obj.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="area_scan_line.cpp">
+    <ClCompile Include="region_scan_line.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,7 +38,7 @@
     <ClInclude Include="main.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="area_scan_line.h">
+    <ClInclude Include="region_scan_line.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

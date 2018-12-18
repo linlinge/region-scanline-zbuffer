@@ -1,8 +1,8 @@
-﻿  my_opengl.cc
+﻿  load_obj.cpp
   Note: including lib: glut32.lib
   
   Generating code
-  1 of 800 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  2 of 802 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code

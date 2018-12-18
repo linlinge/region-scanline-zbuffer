@@ -11,8 +11,12 @@
 #define DY 0.00001.0f
 
 // transformation between normlized coordinate and screen coordinate
-#define W2S(DATA)	((DATA + 1.0f)*HEIGHT / 2.0f)
-#define S2W(DATA)	(2.0f / HEIGHT * DATA - 1.0f)
+#define X_W2S(X_W,Y_W)	(WIDTH*(X_W-0.5f*Y_W))
+#define Y_W2S(X_W,Y_W)	(HEIGHT*(0.5f*X_W-Y_W))
+
+#define X_S2W(X_S,Y_S)	(4.0f*X_S/(3.0f*WIDTH)-2.0f*Y_S/(3.0f*HEIGHT))
+#define Y_S2W(X_S,Y_S)	(2.0f*X_S/(3.0f*WIDTH)-4.0f*Y_S/(3.0f*HEIGHT))
+
 
 // use to judge float equivalence
 #define EPS 0.000001f

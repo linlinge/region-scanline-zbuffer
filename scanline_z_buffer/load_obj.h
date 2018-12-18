@@ -10,7 +10,7 @@ using namespace std;
 
 class TrianglePatch {
 public:
-	int id1, id2, id3;
+	int id1, id2, id3,id4,id5;
 };
 
 class Obj {	

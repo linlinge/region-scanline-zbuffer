@@ -2,7 +2,7 @@
 #include <math.h>
 #include <GL/glh_glut.h>
 #include <time.h>
-#include "area_scan_line.h"
+#include "region_scan_line.h"
 #include "load_obj.h"
 #include "main.hpp"
 using namespace glh;
@@ -10,12 +10,14 @@ glut_simple_mouse_interactor object;
 Vec3f  frame_buffer[HEIGHT];
 float y_world[HEIGHT];
 
+
+
 ofstream f;
 void Init()
 {
 	for (int i= 0; i< HEIGHT; i++)
 	{
-		float color = S2W(i) / 2.0f + 0.5f;
+		float color = Y_S2W(0,i) / 2.0f + 0.5f;
 		Vec3f color_temp;
 		color_temp.r = pow(color, 2);
 		color_temp.g = color;
@@ -25,7 +27,7 @@ void Init()
 		frame_buffer[i].g = color_temp.g;
 		frame_buffer[i].b = color_temp.b;
 
-		y_world[i] = S2W(i);
+		y_world[i] = Y_S2W(0,i);
 	}
 	f.open("../time.txt");
 	//memset(z_buffer_, 0, sizeof(float)*ROWS*COLS);
@@ -34,7 +36,7 @@ void Init()
 void OpenglFunc(int argc, char** argv)
 {
 	// Initial Area
-	obj1.Init("./dataset/soccerball.obj");
+	obj1.Init("./dataset/duck.obj");
 	Init();
 
 	glutInit(&argc, argv);
@@ -71,16 +73,16 @@ void DisplayFunc()
 	for (int i=0;i<HEIGHT;i++)
 	{	
 		glColor3f(frame_buffer[i].r, frame_buffer[i].g, frame_buffer[i].b);
-		if (i == 345)
-			glColor3f(255, 255, 255);
+		if (i == 100)
+			glColor3f(255, 0, 255);
 
 		glVertex2f(-1.0f,y_world[i]);
 		glVertex2f(1.0f,y_world[i]);
 	}
 	glColor3f(255, 0,0);
 	float col = 210.0f;
-	glVertex2f(S2W(col), -1.0f);
-	glVertex2f(S2W(col), 1.0f);
+	glVertex2f(Y_S2W(0,col), -1.0f);
+	glVertex2f(Y_S2W(0,col), 1.0f);
 	glEnd();
 
 
