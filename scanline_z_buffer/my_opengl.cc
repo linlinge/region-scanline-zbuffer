@@ -71,14 +71,14 @@ void DisplayFunc()
 	for (int i=0;i<HEIGHT;i++)
 	{	
 		glColor3f(frame_buffer[i].r, frame_buffer[i].g, frame_buffer[i].b);
-		if (i == 333)
+		if (i == 345)
 			glColor3f(255, 255, 255);
 
 		glVertex2f(-1.0f,y_world[i]);
 		glVertex2f(1.0f,y_world[i]);
 	}
 	glColor3f(255, 0,0);
-	float col = 185.0f;
+	float col = 210.0f;
 	glVertex2f(S2W(col), -1.0f);
 	glVertex2f(S2W(col), 1.0f);
 	glEnd();

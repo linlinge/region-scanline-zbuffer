@@ -2,8 +2,8 @@
   Note: including lib: glut32.lib
   
   Generating code
-  4 of 800 functions ( 0.5%) were compiled, the rest were copied from previous compilation.
+  1 of 800 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  scanline_z_buffer.vcxproj -> E:\ZJU_LESSON\CG\scanline_z_buffer\x64\Release\scanline_z_buffer.exe
+  scanline_z_buffer.vcxproj -> E:\region-scanline-zbuffer\x64\Release\scanline_z_buffer.exe
