@@ -11,12 +11,11 @@
 #define DY 0.00001.0f
 
 // transformation between normlized coordinate and screen coordinate
-#define X_W2S(X_W,Y_W)	(WIDTH*(X_W-0.5f*Y_W))
-#define Y_W2S(X_W,Y_W)	(HEIGHT*(0.5f*X_W-Y_W))
+#define XS(DATA)	((DATA+1)*WIDTH/2.0)
+#define YS(DATA)	((-DATA+1)*HEIGHT/2.0)
 
-#define X_S2W(X_S,Y_S)	(4.0f*X_S/(3.0f*WIDTH)-2.0f*Y_S/(3.0f*HEIGHT))
-#define Y_S2W(X_S,Y_S)	(2.0f*X_S/(3.0f*WIDTH)-4.0f*Y_S/(3.0f*HEIGHT))
-
+#define XW(DATA)	(2.0*DATA/WIDTH-1.0f)
+#define YW(DATA)	(1.0-2.0*DATA/HEIGHT)
 
 // use to judge float equivalence
 #define EPS 0.000001f
@@ -72,17 +71,7 @@ public:
 		z = z / scale;
 		return *this;
 	}
-	
-	float ToWorldX()
-	{
-		return  (2.0f / HEIGHT * x - 1.0f);
-	}
-	float ToWorldY()
-	{
-		return  (2.0f / HEIGHT * y - 1.0f);
-	}
-	float ToWorldZ()
-	{
-		return  (2.0f / HEIGHT * z - 1.0f);
-	}
 };
+
+
+extern float scale;

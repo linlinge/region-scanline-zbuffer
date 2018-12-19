@@ -1,9 +1,9 @@
-﻿  load_obj.cpp
+﻿  region_scan_line.cpp
   Note: including lib: glut32.lib
   
   Generating code
-  2 of 802 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
+  1 of 799 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  scanline_z_buffer.vcxproj -> E:\region-scanline-zbuffer\x64\Release\scanline_z_buffer.exe
+  scanline_z_buffer.vcxproj -> E:\ZJU_LESSON\CG\region_scanline_z_buffer\x64\Release\scanline_z_buffer.exe

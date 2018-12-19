@@ -1,4 +1,4 @@
-﻿  my_opengl.cc
+﻿  region_scan_line.cpp
   Note: including lib: glut32.lib
   
-  scanline_z_buffer.vcxproj -> E:\region-scanline-zbuffer\x64\Debug\scanline_z_buffer.exe
+  scanline_z_buffer.vcxproj -> E:\ZJU_LESSON\CG\region_scanline_z_buffer\x64\Debug\scanline_z_buffer.exe

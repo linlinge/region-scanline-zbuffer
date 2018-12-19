@@ -57,6 +57,11 @@ bool Obj::LoadObjFile() {
 			p.y = atof(s2.c_str());
 			p.z = atof(s3.c_str());
 			points_.push_back(p);
+
+			//// sum x,y,z
+			//barycentre_.x += p.x;
+			//barycentre_.y += p.y;
+			//barycentre_.z += p.z;
 		}
 		else if (s == "f")
 		{
@@ -111,40 +116,33 @@ bool Obj::LoadObjFile() {
 
 void Obj::Init()
 {
+	//barycentre_.x = barycentre_.x / points_.size();
+	//barycentre_.y = barycentre_.y / points_.size();
+	//barycentre_.z = barycentre_.z / points_.size();
+
+	Vec3f s0;
 	float max_radius = 0.0f;
-	barycentre_.x = 0.0f;
-	barycentre_.y = 0.0f;
-	barycentre_.z = 0.0f;
-
-
-
 	for (auto &p : points_)
 	{
-		float r = centre_.DistanceXY(p);
-		max_radius = max_radius > r ? max_radius : r;
-
-		barycentre_.x += p.x;
-		barycentre_.y += p.y;
-		barycentre_.z += p.z;
+		float dist = s0.DistanceXY(p);
+		max_radius = max_radius > dist ? max_radius : dist;
 	}
-	barycentre_.x = barycentre_.x / points_.size();
-	barycentre_.y = barycentre_.y / points_.size();
-	barycentre_.z = barycentre_.z / points_.size();
+
 
 	// coordnite_source -> coordinate_world -> coordinate_screen
 	for (auto &p : points_)
 	{		
-		p.x = 2.0f*(p.x / max_radius) - 1;
-		p.y = 2.0f*(p.y / max_radius)-1;
-		p.z = 2.0f*(p.z / max_radius)-1;
+		p.x = XS(p.x / max_radius);
+		p.y = YS(p.y / max_radius);
+		p.z = p.z / max_radius;
 	}
 
-	ofstream f("../output/test_in_or_out_of_triangle.txt");
+	/*ofstream f("../output/test_in_or_out_of_triangle.txt");
 	for (auto & face : faces_)
 	{
 		f << points_[face.id1].x << " " << points_[face.id1].y << " " <<
 			points_[face.id2].x << " " << points_[face.id2].y << " " <<
 			points_[face.id3].x << " " << points_[face.id3].y << endl;
 	}
-	f.close();
+	f.close();*/
 }

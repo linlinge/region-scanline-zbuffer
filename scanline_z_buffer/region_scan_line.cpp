@@ -172,7 +172,7 @@ void AreaScanLines::BuildTables()
 		polygon_temp.id = i;
 
 		Vec3f light_source(100.0f, 100.0f, 500.0f);
-		float dist = p1.Distance(light_source)/500.0f;
+		float dist = p1.Distance(light_source)/800.0f;
 		polygon_temp.color = Vec3f(0.0f,dist, 0.0f);
 		PT_[i] = polygon_temp;
 	}		
@@ -281,8 +281,8 @@ void AreaScanLines::Render()
 					Vec3f &color_temp = PT_[edge1.id].color;
 					glColor3f(color_temp.r, color_temp.g, color_temp.b);
 					glBegin(GL_LINES);
-					glVertex2f(X_S2W(edge1.xc, y_world[i]), y_world[i]);
-					glVertex2f(X_S2W(edge2.xc, y_world[i]), y_world[i]);
+					glVertex2f(XW(edge1.xc)*scale, y_world[i] * scale);
+					glVertex2f(XW(edge2.xc)*scale, y_world[i] * scale);
 					glEnd();
 					continue;
 				}
@@ -292,8 +292,8 @@ void AreaScanLines::Render()
 					Vec3f &color_temp = PT_[edge2.id].color;
 					glColor3f(color_temp.r, color_temp.g, color_temp.b);
 					glBegin(GL_LINES);
-					glVertex2f(X_S2W(edge1.xc, y_world[i]), y_world[i]);
-					glVertex2f(X_S2W(edge2.xc, y_world[i]), y_world[i]);
+					glVertex2f(XW(edge1.xc)*scale, y_world[i]*scale);
+					glVertex2f(XW(edge2.xc)*scale, y_world[i]*scale);
 					glEnd();
 					continue;
 				}				

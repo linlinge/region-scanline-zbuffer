@@ -19,21 +19,6 @@ public:
 	int id;		// identifier of this polygon
 	int flag;	// status of edge
 
-	//EdgeElement operator=(EdgeElement & dat)
-	//{
-	//	if (this != &dat)
-	//	{
-	//		x = dat.x;
-	//		xc = dat.xc;
-	//		dx = dat.dx;
-	//		dy = dat.dy;
-	//		dy_max = dat.dy_max;
-	//		id = dat.id;
-	//		flag = dat.flag;
-	//	}
-	//	return *this;
-	//}
-
 	void CopyTo(EdgeElement& dat)
 	{
 		dat.x=x;	
@@ -52,7 +37,6 @@ public:
 	float a, b, c, d;	// parameters of this polygon plan
 	int id;				// identifier of this polygon
 	Vec3f color;		// color of this polygon
-	//int flag;			// flag of status
 };
 
 
@@ -68,8 +52,6 @@ public:
 
 	void BuildTables();
 	void Render();
-
-	//float z_buffer_[WIDTH];
 };
 extern AreaScanLines scan_lines;
 

@@ -9,15 +9,14 @@ using namespace glh;
 glut_simple_mouse_interactor object;
 Vec3f  frame_buffer[HEIGHT];
 float y_world[HEIGHT];
-
-
+float scale = 0.9f;
 
 ofstream f;
 void Init()
 {
 	for (int i= 0; i< HEIGHT; i++)
 	{
-		float color = Y_S2W(0,i) / 2.0f + 0.5f;
+		float color = 1-(float)i/HEIGHT;
 		Vec3f color_temp;
 		color_temp.r = pow(color, 2);
 		color_temp.g = color;
@@ -27,7 +26,7 @@ void Init()
 		frame_buffer[i].g = color_temp.g;
 		frame_buffer[i].b = color_temp.b;
 
-		y_world[i] = Y_S2W(0,i);
+		y_world[i] = YW(i);
 	}
 	f.open("../time.txt");
 	//memset(z_buffer_, 0, sizeof(float)*ROWS*COLS);
@@ -81,8 +80,8 @@ void DisplayFunc()
 	}
 	glColor3f(255, 0,0);
 	float col = 210.0f;
-	glVertex2f(Y_S2W(0,col), -1.0f);
-	glVertex2f(Y_S2W(0,col), 1.0f);
+	glVertex2f(YW(col), -1.0f);
+	glVertex2f(YW(col), 1.0f);
 	glEnd();
 
 
@@ -169,14 +168,15 @@ void KeyboardFunc(unsigned char Key, int x, int y)
 	//zoom in
 	if (Key == 'i' || Key == 'I')
 	{
-		//if(obj1.scale_<=0.9)
-			obj1.scale_ += 0.01f;
+		scale += 0.01f;
 	}
 
 	if (Key == 'o' || Key == 'O')
 	{
-		if(obj1.scale_>0.01f)
-			obj1.scale_ -= 0.01f;
+		scale -= 0.01f;
+		if (scale <= 0)
+			scale = scale + 0.01f;
+			
 	}
 }
 //F1~F12¡¢¿ØÖÆ¼ü¼ì²â
