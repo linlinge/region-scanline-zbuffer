@@ -22,6 +22,14 @@
 
 #define ROUND(DATA) ((int)(DATA+0.5f))
 
+#define MAX2(D1,D2)	(D1>D2 ? D1: D2)
+#define MAX3(D1,D2,D3) (MAX2(MAX2(D1,D2),D3))
+
+#define MIN2(D1,D2) (D1<D2 ? D1:D2)
+#define MIN3(D1,D2,D3) (MIN2(MIN2(D1,D2),D3))
+
+#define DEBUG
+
 class Vec3f
 {
 public:
@@ -71,7 +79,19 @@ public:
 		z = z / scale;
 		return *this;
 	}
+	Vec3f& operator +(Vec3f & dat)
+	{
+		x = x + dat.x;
+		y = y + dat.y;
+		z = z + dat.z;
+		return *this;
+	}
+
+	float GetArc(Vec3f& dat)
+	{
+		float arc = x * dat.x + y * dat.y + z * dat.z;
+		return arc / sqrt(x*x + y * y + z * z) / sqrt(dat.x*dat.x+dat.y*dat.y+dat.z*dat.z);
+	}
 };
-
-
 extern float scale;
+extern Vec3f light0;

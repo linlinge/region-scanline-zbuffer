@@ -9,7 +9,7 @@ using namespace glh;
 glut_simple_mouse_interactor object;
 Vec3f  frame_buffer[HEIGHT];
 float y_world[HEIGHT];
-float scale = 0.9f;
+
 
 ofstream f;
 void Init()
@@ -22,20 +22,25 @@ void Init()
 		color_temp.g = color;
 		color_temp.b = color;
 
-		frame_buffer[i].r = color_temp.r;
+		/*frame_buffer[i].r = color_temp.r;
 		frame_buffer[i].g = color_temp.g;
-		frame_buffer[i].b = color_temp.b;
+		frame_buffer[i].b = color_temp.b;*/
+
+		frame_buffer[i].r = 0;
+		frame_buffer[i].g = 0;
+		frame_buffer[i].b = 0; 
 
 		y_world[i] = YW(i);
+
 	}
-	f.open("../time.txt");
+	f.open("../output/time.txt");
 	//memset(z_buffer_, 0, sizeof(float)*ROWS*COLS);
 }
 
 void OpenglFunc(int argc, char** argv)
 {
 	// Initial Area
-	obj1.Init("./dataset/duck.obj");
+	obj1.Init("./dataset/cat.obj");
 	Init();
 
 	glutInit(&argc, argv);
@@ -72,14 +77,14 @@ void DisplayFunc()
 	for (int i=0;i<HEIGHT;i++)
 	{	
 		glColor3f(frame_buffer[i].r, frame_buffer[i].g, frame_buffer[i].b);
-		if (i == 100)
+		if (i == 240)
 			glColor3f(255, 0, 255);
 
 		glVertex2f(-1.0f,y_world[i]);
 		glVertex2f(1.0f,y_world[i]);
 	}
-	glColor3f(255, 0,0);
-	float col = 210.0f;
+	glColor3f(230, 0,0);
+	float col = 188.0f;
 	glVertex2f(YW(col), -1.0f);
 	glVertex2f(YW(col), 1.0f);
 	glEnd();
@@ -99,20 +104,20 @@ void DisplayFunc()
 	//	glEnd();
 	//}
 
-	/*Vec3f light_source(500,500,500);
-	for (auto & face : obj1.faces_)
-	{		
-		glBegin(GL_TRIANGLES);
-		int id1 = face.id1;
-		int id2 = face.id2;
-		int id3 = face.id3;
-		glColor3f(0, 0, light_source.Distance(obj1.points_[id1])/500.0);
+	//Vec3f light_source(500,500,500);
+	//for (auto & face : obj1.faces_)
+	//{		
+	//	glBegin(GL_TRIANGLES);
+	//	int id1 = face.id1;
+	//	int id2 = face.id2;
+	//	int id3 = face.id3;
+	//	glColor3f(0, 0, light_source.Distance(obj1.points_[id1])/500.0);
 
-		glVertex2f(obj1.points_[id1].ToWorldX(), obj1.points_[id1].ToWorldY());
-		glVertex2f(obj1.points_[id2].ToWorldX(), obj1.points_[id2].ToWorldY());
-		glVertex2f(obj1.points_[id3].ToWorldX(), obj1.points_[id3].ToWorldY());
-		glEnd();
-	}*/
+	//	glVertex2f(XW(ROUND(obj1.points_[id1].x)), YW(ROUND(obj1.points_[id1].y)));
+	//	glVertex2f(XW(ROUND(obj1.points_[id2].x)), YW(ROUND(obj1.points_[id2].y)));
+	//	glVertex2f(XW(ROUND(obj1.points_[id3].x)), YW(ROUND(obj1.points_[id3].y)));
+	//	glEnd();
+	//}
 
 	glutSwapBuffers();	//swap buffer
 	t1 = clock();

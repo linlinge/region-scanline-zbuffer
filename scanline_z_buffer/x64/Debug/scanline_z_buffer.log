@@ -1,4 +1,16 @@
-﻿  region_scan_line.cpp
+﻿  load_obj.cpp
   Note: including lib: glut32.lib
   
+  main.cc
+  Note: including lib: glut32.lib
+  
+  my_opengl.cc
+  Note: including lib: glut32.lib
+  
+  region_scan_line.cpp
+  Note: including lib: glut32.lib
+  
+e:\zju_lesson\cg\region_scanline_z_buffer\scanline_z_buffer\region_scan_line.cpp(80): warning C4101: 'y_min': unreferenced local variable
+e:\zju_lesson\cg\region_scanline_z_buffer\scanline_z_buffer\region_scan_line.cpp(80): warning C4101: 'y_max': unreferenced local variable
+  Generating Code...
   scanline_z_buffer.vcxproj -> E:\ZJU_LESSON\CG\region_scanline_z_buffer\x64\Debug\scanline_z_buffer.exe
