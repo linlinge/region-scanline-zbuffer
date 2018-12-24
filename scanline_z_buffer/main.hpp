@@ -15,7 +15,7 @@
 #define YS(DATA)	((-DATA+1)*HEIGHT/2.0)
 
 #define XW(DATA)	(2.0*DATA/WIDTH-1.0f)
-#define YW(DATA)	(1.0-2.0*DATA/HEIGHT)
+#define YW(DATA)	(1.0f-2.0f*DATA/HEIGHT)
 
 // use to judge float equivalence
 #define EPS 0.000001f
@@ -29,6 +29,8 @@
 #define MIN3(D1,D2,D3) (MIN2(MIN2(D1,D2),D3))
 
 #define DEBUG
+
+#define BACKGROUND INT_MAX-1
 
 class Vec3f
 {
@@ -92,6 +94,21 @@ public:
 		float arc = x * dat.x + y * dat.y + z * dat.z;
 		return arc / sqrt(x*x + y * y + z * z) / sqrt(dat.x*dat.x+dat.y*dat.y+dat.z*dat.z);
 	}
+
+	static Vec3f GetNorm(Vec3f& dat)
+	{
+		Vec3f norm=dat;
+		float a = sqrt(dat.x*dat.x + dat.y * dat.y + dat.z * dat.z);
+		return norm / a;
+	}
+
+	static Vec3f Dot(Vec3f& dat1, Vec3f& dat2)
+	{
+		Vec3f rst;
+		rst.x = dat1.y * dat2.z - dat2.y * dat1.z;
+		rst.y = dat2.x * dat1.z - dat1.x * dat2.z;
+		rst.z = dat1.x * dat2.y - dat2.x * dat1.y;
+	}
+
 };
 extern float scale;
-extern Vec3f light0;

@@ -22,25 +22,24 @@ void Init()
 		color_temp.g = color;
 		color_temp.b = color;
 
-		/*frame_buffer[i].r = color_temp.r;
+		frame_buffer[i].r = color_temp.r;
 		frame_buffer[i].g = color_temp.g;
-		frame_buffer[i].b = color_temp.b;*/
+		frame_buffer[i].b = color_temp.b;
 
-		frame_buffer[i].r = 0;
-		frame_buffer[i].g = 0;
-		frame_buffer[i].b = 0; 
+		//frame_buffer[i].r = 255;
+		//frame_buffer[i].g = 0;
+		//frame_buffer[i].b = 0; 
 
 		y_world[i] = YW(i);
 
 	}
 	f.open("../output/time.txt");
-	//memset(z_buffer_, 0, sizeof(float)*ROWS*COLS);
 }
 
 void OpenglFunc(int argc, char** argv)
 {
 	// Initial Area
-	obj1.Init("./dataset/cat.obj");
+	obj1.Init("./dataset/bunny.obj");
 	Init();
 
 	glutInit(&argc, argv);
@@ -77,14 +76,14 @@ void DisplayFunc()
 	for (int i=0;i<HEIGHT;i++)
 	{	
 		glColor3f(frame_buffer[i].r, frame_buffer[i].g, frame_buffer[i].b);
-		if (i == 240)
-			glColor3f(255, 0, 255);
+		if (i == 450)
+			glColor3f(0,255 , 0);
 
 		glVertex2f(-1.0f,y_world[i]);
 		glVertex2f(1.0f,y_world[i]);
 	}
-	glColor3f(230, 0,0);
-	float col = 188.0f;
+	glColor3f(0, 0, 255);
+	float col = 144.0f;
 	glVertex2f(YW(col), -1.0f);
 	glVertex2f(YW(col), 1.0f);
 	glEnd();
@@ -93,25 +92,25 @@ void DisplayFunc()
 	scan_lines.BuildTables();
 	scan_lines.Render();
 	
-	//for (int i = 0; i < obj1.points_.size(); i++)
-	//{
-	//	glBegin(GL_POINTS);
-
-	//	float new_x = cos(sign_flag)*obj1.points_[i].ToWorldX() - sin(sign_flag)*obj1.points_[i].ToWorldY();
-	//	float new_y = sin(sign_flag)*obj1.points_[i].ToWorldX() + cos(sign_flag)*obj1.points_[i].ToWorldY();
-
-	//	glVertex2f(new_x*obj1.scale_, new_y*obj1.scale_);
-	//	glEnd();
-	//}
+	/*for (auto & p: obj1.points_)
+	{
+		glColor3f(p.z,p.z,p.z);
+		glBegin(GL_POINTS);
+		glVertex2f(XW(p.x),YW(p.y));
+		glEnd();
+	}*/
 
 	//Vec3f light_source(500,500,500);
+	//int i = 0;
 	//for (auto & face : obj1.faces_)
 	//{		
+	//	//cout << i++ << endl;
 	//	glBegin(GL_TRIANGLES);
-	//	int id1 = face.id1;
-	//	int id2 = face.id2;
-	//	int id3 = face.id3;
-	//	glColor3f(0, 0, light_source.Distance(obj1.points_[id1])/500.0);
+	//	Vec3f& p = obj1.points_[face.normal_id_[0]];
+	//	int& id1 = face.normal_id_[0];
+	//	int& id2 = face.normal_id_[1];
+	//	int& id3 = face.normal_id_[2];
+	//	glColor3f(p.z,p.z,p.z);
 
 	//	glVertex2f(XW(ROUND(obj1.points_[id1].x)), YW(ROUND(obj1.points_[id1].y)));
 	//	glVertex2f(XW(ROUND(obj1.points_[id2].x)), YW(ROUND(obj1.points_[id2].y)));
@@ -124,7 +123,6 @@ void DisplayFunc()
 	
 	f << (t1 - t0)<<" "<<1000.0f/(t1-t0) << endl;
 	//f.close();
-
 	//cout << 1000.0 / (t1 - t0)<<"fps" << endl;
 }
 
