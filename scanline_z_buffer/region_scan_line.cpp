@@ -4,57 +4,9 @@
 #include "main.hpp"
 AreaScanLines scan_lines;
 
-//test
-void test_fun()
-{
-	// tri1
-	//obj1.points_[0].x = 100; 
-	//obj1.points_[0].y = 100;
-	//obj1.points_[0].z = 100;
-
-	//obj1.points_[1].x = 50;
-	//obj1.points_[1].y = 200;
-	//obj1.points_[1].z = 100;
-
-	//obj1.points_[2].x = 250;
-	//obj1.points_[2].y = 200;
-	//obj1.points_[2].z = 100;
-
-	obj1.points_[0].x = 100.0f;
-	obj1.points_[0].y = 100.0f;
-	obj1.points_[0].z = 300.0f;
-
-	obj1.points_[1].x = 50.0f;
-	obj1.points_[1].y = 200.0f;
-	obj1.points_[1].z = 300.0f;
-
-	obj1.points_[2].x = 150.0f;
-	obj1.points_[2].y = 200.0f;
-	obj1.points_[2].z = 300.0f;
-
-	// tri2
-	obj1.points_[3].x = 200.0f;
-	obj1.points_[3].y = 100.0f;
-	obj1.points_[3].z = 200.0f;
-
-	obj1.points_[4].x = 50.0f;
-	obj1.points_[4].y = 250.0f;
-	obj1.points_[4].z = 200.0f;
-
-	obj1.points_[5].x = 250.0f;
-	obj1.points_[5].y = 250.0f;
-	obj1.points_[5].z = 200.0f;
-}
-
-
-AreaScanLines::AreaScanLines()
-{
-	
-}
 
 void AreaScanLines::BuildTables()
 {
-	//test_fun();
 	PT_.clear();
 
 
@@ -66,9 +18,6 @@ void AreaScanLines::BuildTables()
 	//the vertexs have been sorted
 	for (int i=0; i<obj1.faces_.size();i++)
 	{
-		//cout << i << endl;
-		if (i == 5049)
-			i = 5049;
 		// Init 
 		EdgeElement edge_temp,edge_temp1, edge_temp2;
 		PolygonElement polygon_temp;
@@ -86,15 +35,6 @@ void AreaScanLines::BuildTables()
 		int y_min, y_max;
 		/// define slope
 		float k = 0;
-
-		/// calculate k
-	/*	float k12 = (p1.y - p2.y) / (p1.x-p2.x);
-		float k13 = (p1.y - p3.y) / (p1.x - p3.x);
-		float k23 = (p2.y - p3.y) / (p2.x - p3.x);
-		float dx12 = -1.0f / k12;
-		float dx13 = -1.0f / k13;
-		float dx23 = -1.0f / k23;*/
-
 
 		int int_y1 = ROUND(p1.y);
 		int int_y2 = ROUND(p2.y);
@@ -140,7 +80,6 @@ void AreaScanLines::BuildTables()
 			edge_temp.dx = -1.0f / k;
 			edge_temp.dy = int_y3 - int_y1 + 1;
 			edge_temp.dy_max = edge_temp.dy;
-			//edge_temp.flag = IS_IN(p1.x, p1.y, p3.x, p3.y, p2.x, p2.y);
 			edge_temp.id = i;
 			ET_[int_y1].push_back(edge_temp);
 
@@ -151,7 +90,6 @@ void AreaScanLines::BuildTables()
 			edge_temp.dx = -1.0f / k;
 			edge_temp.dy = int_y3 - int_y2 + 1;
 			edge_temp.dy_max = edge_temp.dy;
-			//edge_temp.flag = IS_IN(p2.x, p2.y, p3.x, p3.y, p1.x, p1.y);
 			edge_temp.id = i;
 			ET_[int_y2].push_back(edge_temp);
 		}
@@ -164,8 +102,7 @@ void AreaScanLines::BuildTables()
 			k = (int_y1 - int_y2) / (p1.x - p2.x);
 			edge_temp.dx = -1.0f / k;
 			edge_temp.dy = int_y2 - int_y1 + 1;
-			edge_temp.dy_max = edge_temp.dy;
-			//edge_temp.flag = IS_IN(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);			
+			edge_temp.dy_max = edge_temp.dy;		
 			edge_temp.id = i;
 			ET_[int_y1].push_back(edge_temp);
 
@@ -175,8 +112,7 @@ void AreaScanLines::BuildTables()
 			k = (int_y1 - int_y3) / (p1.x - p3.x);
 			edge_temp.dx = -1.0f / k;
 			edge_temp.dy = int_y3 - int_y1 + 1;
-			edge_temp.dy_max = edge_temp.dy;
-			//edge_temp.flag = IS_IN(p1.x, p1.y, p3.x, p3.y, p2.x, p2.y);			
+			edge_temp.dy_max = edge_temp.dy;		
 			edge_temp.id = i;
 			ET_[int_y1].push_back(edge_temp);
 		}
@@ -189,8 +125,7 @@ void AreaScanLines::BuildTables()
 			k = (int_y1 - int_y2) / (p1.x - p2.x);
 			edge_temp.dx = -1.0f / k;
 			edge_temp.dy = int_y2 - int_y1;
-			edge_temp.dy_max = edge_temp.dy;
-			//edge_temp.flag = IS_IN(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);			
+			edge_temp.dy_max = edge_temp.dy;		
 			edge_temp.id = i;
 			ET_[int_y1].push_back(edge_temp);
 
@@ -200,8 +135,7 @@ void AreaScanLines::BuildTables()
 			k = (int_y2 - int_y3) / (p2.x - p3.x);
 			edge_temp.dx = -1.0f / k;
 			edge_temp.dy = int_y3 - int_y2 + 1;
-			edge_temp.dy_max = edge_temp.dy;
-			//edge_temp.flag = IS_IN(p2.x, p2.y, p3.x, p3.y, p1.x, p1.y);			
+			edge_temp.dy_max = edge_temp.dy;			
 			edge_temp.id = i;
 			ET_[int_y2].push_back(edge_temp);
 
@@ -211,8 +145,7 @@ void AreaScanLines::BuildTables()
 			k = (int_y1 - int_y3) / (p1.x - p3.x);
 			edge_temp.dx = -1.0f / k;
 			edge_temp.dy = int_y3 - int_y1 + 1;
-			edge_temp.dy_max = edge_temp.dy;
-			//edge_temp.flag = IS_IN(p1.x, p1.y, p3.x, p3.y, p2.x, p2.y);			
+			edge_temp.dy_max = edge_temp.dy;		
 			edge_temp.id = i;
 			ET_[int_y1].push_back(edge_temp);
 		}
@@ -282,11 +215,11 @@ void AreaScanLines::Render()
 			{
 				// Debug
 				//cout << "(" << i << "," << j << ")"<<endl;
-				if (i == 202 && j == 4)
+				/*if (i == 202 && j == 4)
 					j = 4;
 
 				if (i == 450)
-					i = 450;
+					i = 450;*/
 
 				// init
 				EdgeElement & edge1 = AET_[j];				

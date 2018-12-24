@@ -232,14 +232,26 @@ GPU& GeForce GTX 960 (2GB显存)\\
 \toprule  %添加表格头部粗线
 文件&三角片数&顶点数&优化前帧速(fps)&优化后帧速(fps)\\
 \midrule  %添加表格中横线
-cat.obj&2755&5506&9.1481& 9.1534\\
-duck.obj&791&3957& 5.0929&4.9988\\
-bunny.obj&69451&208353&0.5258&0.5020\\
+cat.obj&2755&5506&11.7883& \\
+duck.obj&791&3957& 6.0306&\\
+bunny.obj&69451&208353&1.9299&\\
 \bottomrule %添加表格底部粗线
 \end{tabular}
 \end{center}
 \end{table}
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{cat.png}
+\includegraphics[scale=0.5]{duck.png}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.5]{bunny.png}
+\end{center}
+\end{figure}
 \subsection{程序分析}
 本次使用的是称为$bunny.obj$的文件，该文件中包含了$v$和$f$开头的数据，代码中$load\_obj.h$和$load\_obj.cpp$两个文件定义了加载$obj$文件的方法。
 

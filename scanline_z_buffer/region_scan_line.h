@@ -17,7 +17,6 @@ public:
 	int dy;		// number of  scan lines which coverd by one edge
 	int dy_max;	// the capacity of dy
 	int id;		// identifier of this polygon
-	int flag;	// status of edge
 
 	void CopyTo(EdgeElement& dat)
 	{
@@ -27,7 +26,6 @@ public:
 		dat.dy=dy;	
 		dat.dy_max=dy_max;	
 		dat.id=id;
-		dat.flag=flag;	
 	}
 
 	static void swap(EdgeElement& edge1, EdgeElement& edge2)
@@ -37,8 +35,7 @@ public:
 		float temp_dx;	
 		int   temp_dy;		
 		int   temp_dy_max;	
-		int   temp_id;		
-		int   temp_flag;	
+		int   temp_id;
 
 		temp_x = edge1.x; edge1.x = edge2.x; edge2.x = temp_x;
 		temp_xc = edge1.xc; edge1.xc = edge2.xc; edge2.xc = temp_xc;
@@ -46,7 +43,6 @@ public:
 		temp_dy = edge1.dy; edge1.dy = edge2.dy; edge2.dy = temp_dy;
 		temp_dy_max = edge1.dy_max; edge1.dy_max = edge2.dy_max; edge2.dy_max = temp_dy_max;
 		temp_id = edge1.id; edge1.id = edge2.id; edge2.id = temp_id;
-		temp_flag = edge1.flag; edge1.flag = edge2.flag; edge2.flag = temp_flag;
 	}
 };
 
@@ -71,8 +67,6 @@ public:
 	vector<float> xc_;
 	vector<int> id_;
 
-	AreaScanLines();
-	//AreaScanLines();
 	void BuildTables();
 	void Render();
 	int ZCompare(int id1,int id2,float x,float y);

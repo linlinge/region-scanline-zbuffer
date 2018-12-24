@@ -28,7 +28,7 @@
 #define MIN2(D1,D2) (D1<D2 ? D1:D2)
 #define MIN3(D1,D2,D3) (MIN2(MIN2(D1,D2),D3))
 
-#define DEBUG
+//#define DEBUG
 
 #define BACKGROUND INT_MAX-1
 

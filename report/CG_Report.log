@@ -1,7 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2018.12.3)  21 DEC 2018 10:28
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9) (preloaded format=pdflatex 2018.12.3)  24 DEC 2018 19:22
 entering extended mode
 **CG_Report.tex
-(E:\ZJU_LESSON\CG\region_scanline_z_buffer\report\CG_Report.tex
+
+("E:\ZJU_LESSON\CG\region_scanline_z_buffer (without vertex)\report\CG_Report.t
+ex"
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for loaded.
 (D:\CTEX\MiKTeX\tex\latex\base\article.cls
@@ -898,7 +900,8 @@ Normal \count register pool exhausted, switching to extended pool.
 \calc@Ccount=\count277
 \calc@Cskip=\skip51
 )
-(E:\ZJU_LESSON\CG\region_scanline_z_buffer\report\CG_Report.aux)
+("E:\ZJU_LESSON\CG\region_scanline_z_buffer (without vertex)\report\CG_Report.a
+ux")
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 62.
 LaTeX Font Info:    ... okay on input line 62.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 62.
@@ -977,8 +980,7 @@ LaTeX Font Info:    Checking defaults for C41/song/m/n on input line 62.
 LaTeX Font Info:    ... okay on input line 62.
 LaTeX Font Info:    Checking defaults for C62/song/m/n on input line 62.
 LaTeX Font Info:    ... okay on input line 62.
-
-(D:\CTEX\MiKTeX\tex\context\base\supp-pdf.mkii
+ (D:\CTEX\MiKTeX\tex\context\base\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count278
 \scratchdimen=\dimen179
@@ -1034,11 +1036,11 @@ Package pdftex.def Info: coordinate.png used on input line 101.
 
 [1
 
-] [2 <E:/ZJU_LESSON/CG/region_scanline_z_buffer/report/coordinate.png>]
+] [2 <E:/ZJU_LESSON/CG/region_scanline_z_buffer (without vertex)/report/coordin
+ate.png>]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 147.
 
-
-(D:\CTEX\MiKTeX\tex\latex\base\omscmr.fd
+ (D:\CTEX\MiKTeX\tex\latex\base\omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
@@ -1056,8 +1058,8 @@ File: structure1.png Graphic file (type png)
 Package pdftex.def Info: structure1.png used on input line 176.
 (pdftex.def)             Requested size: 251.13379pt x 137.61168pt.
 
-[3 <E:/ZJU_LESSON/CG/region_scanline_z_buffer/report/structure2.png>]
-<cases1.png, id=198, 637.38126pt x 114.4275pt>
+[3 <E:/ZJU_LESSON/CG/region_scanline_z_buffer (without vertex)/report/structure
+2.png>] <cases1.png, id=198, 637.38126pt x 114.4275pt>
 File: cases1.png Graphic file (type png)
  <use cases1.png>
 Package pdftex.def Info: cases1.png used on input line 219.
@@ -1068,76 +1070,98 @@ File: cases2.png Graphic file (type png)
  <use cases2.png>
 Package pdftex.def Info: cases2.png used on input line 221.
 (pdftex.def)             Requested size: 382.42781pt x 82.55823pt.
- [4 <E:/ZJU_LESSON/CG/region_scanline_z_buffer/report/structure1.png>] [5 <E:/Z
-JU_LESSON/CG/region_scanline_z_buffer/report/cases1.png> <E:/ZJU_LESSON/CG/regi
-on_scanline_z_buffer/report/cases2.png>] [6]
-(E:\ZJU_LESSON\CG\region_scanline_z_buffer\report\CG_Report.aux) ) 
+ [4 <E:/ZJU_LESSON/CG/region_scanline_z_buffer (without vertex)/report/structur
+e1.png>]
+<cat.png, id=215, 447.17062pt x 449.42906pt>
+File: cat.png Graphic file (type png)
+ <use cat.png>
+Package pdftex.def Info: cat.png used on input line 245.
+(pdftex.def)             Requested size: 223.58476pt x 224.71397pt.
+
+<duck.png, id=216, 449.42906pt x 451.6875pt>
+File: duck.png Graphic file (type png)
+ <use duck.png>
+Package pdftex.def Info: duck.png used on input line 246.
+(pdftex.def)             Requested size: 224.71397pt x 225.84319pt.
+ [5 <E:/ZJU_LESSON/CG/region_scanline_z_buffer (without vertex)/report/cases1.p
+ng> <E:/ZJU_LESSON/CG/region_scanline_z_buffer (without vertex)/report/cases2.p
+ng>]
+<bunny.png, id=223, 453.19313pt x 450.9347pt>
+File: bunny.png Graphic file (type png)
+ <use bunny.png>
+Package pdftex.def Info: bunny.png used on input line 252.
+(pdftex.def)             Requested size: 226.59601pt x 225.4668pt.
+ [6 <E:/ZJU_LESSON/CG/region_scanline_z_buffer (without vertex)/report/cat.png>
+ <E:/ZJU_LESSON/CG/region_scanline_z_buffer (without vertex)/report/duck.png> <
+E:/ZJU_LESSON/CG/region_scanline_z_buffer (without vertex)/report/bunny.png>] [
+7]
+("E:\ZJU_LESSON\CG\region_scanline_z_buffer (without vertex)\report\CG_Report.a
+ux") ) 
 Here is how much of TeX's memory you used:
- 13504 strings out of 495354
- 199115 string characters out of 3183859
+ 13519 strings out of 495354
+ 199411 string characters out of 3183859
  286261 words of memory out of 3000000
- 16081 multiletter control sequences out of 15000+200000
+ 16093 multiletter control sequences out of 15000+200000
  61546 words of font info for 210 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  40i,9n,58p,854b,2060s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/WINDOWS/F
-onts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/W
-INDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.t
-tc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/
-simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOW
-S/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C
-:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsu
-n.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fon
+<C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fon
 ts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WIN
-DOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc
-><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/si
-msun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/
-Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/
-WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.
-ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts
-/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDO
-WS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><
-C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simh
-ei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fo
-nts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WI
+DOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf
+><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/si
+mhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/
+Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/
+WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.
+ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts
+/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDO
+WS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><
+C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/sims
+un.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fo
+nts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WI
 NDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.tt
-f><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/s
-imhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS
-/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:
-/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun
-.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Font
-s/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WIND
-OWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf>
-<C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/sim
-sun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/F
-onts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/W
+f><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/s
+imhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS
+/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:
+/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun
+.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Font
+s/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WIND
+OWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc>
+<C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/sim
+hei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/F
+onts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/W
 INDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.t
 tc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/
-simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOW
-S/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C
-:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhe
-i.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fon
-ts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C:/WIN
+simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOW
+S/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simsun.ttc><C
+:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsu
+n.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fon
+ts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WIN
 DOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc
 ><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/si
 msun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/
-Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/
-WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.
-ttc><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><D:/CTEX/MiKTeX/f
-onts/type1/public/amsfonts/cm/cmbx12.pfb><D:/CTEX/MiKTeX/fonts/type1/public/ams
-fonts/cm/cmmi10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
-D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/CTEX/MiKTeX/fonts/t
-ype1/public/amsfonts/cm/cmmib10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts
-/cmextra/cmmib7.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><D
-:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/CTEX/MiKTeX/fonts/ty
-pe1/public/amsfonts/cm/cmr7.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/
-cmsl8.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><D:/CTEX/Mi
-KTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><D:/CTEX/MiKTeX/fonts/type1/publi
-c/amsfonts/cm/cmti8.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt8.pf
-b>
-Output written on CG_Report.pdf (6 pages, 1038568 bytes).
+Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simhei.ttf><C:/
+WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.
+ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts/simhei.ttf><C:/WINDOWS/Fonts
+/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDO
+WS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><
+C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/sims
+un.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fo
+nts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WINDOWS/Fonts/simsun.ttc><C:/WI
+NDOWS/Fonts/simsun.ttc><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pf
+b><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><D:/CTEX/MiKTeX/fon
+ts/type1/public/amsfonts/cm/cmmi10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfo
+nts/cm/cmmi12.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><D:/
+CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmmib10.pfb><D:/CTEX/MiKTeX/fonts/ty
+pe1/public/amsfonts/cmextra/cmmib7.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfo
+nts/cm/cmr10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/C
+TEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><D:/CTEX/MiKTeX/fonts/type1/
+public/amsfonts/cm/cmsl8.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cms
+y10.pfb><D:/CTEX/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><D:/CTEX/MiKTe
+X/fonts/type1/public/amsfonts/cm/cmti8.pfb><D:/CTEX/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmtt8.pfb>
+Output written on CG_Report.pdf (7 pages, 1123004 bytes).
 PDF statistics:
- 620 PDF objects out of 1000 (max. 8388607)
+ 631 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 298 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 313 words of extra memory for PDF output out of 10000 (max. 10000000)
 

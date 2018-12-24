@@ -1,7 +1,4 @@
-﻿  region_scan_line.cpp
+﻿  my_opengl.cc
   Note: including lib: glut32.lib
   
-e:\zju_lesson\cg\region_scanline_z_buffer (without vertex)\scanline_z_buffer\region_scan_line.cpp(86): warning C4101: 'y_min': unreferenced local variable
-e:\zju_lesson\cg\region_scanline_z_buffer (without vertex)\scanline_z_buffer\region_scan_line.cpp(86): warning C4101: 'y_max': unreferenced local variable
-e:\zju_lesson\cg\region_scanline_z_buffer (without vertex)\scanline_z_buffer\region_scan_line.cpp(604): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   scanline_z_buffer.vcxproj -> E:\ZJU_LESSON\CG\region_scanline_z_buffer (without vertex)\x64\Debug\scanline_z_buffer.exe
