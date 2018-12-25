@@ -161,7 +161,6 @@ void AreaScanLines::BuildTables()
 		//polygon_temp.b = (p2.z - p1.z)*(p3.x - p1.x) - (p3.z - p1.z)*(p2.x - p1.x);
 		//polygon_temp.c = (p2.x - p1.x)*(int_y3 - int_y1) - (p3.x - p1.x)*(int_y2 - int_y1);
 		//polygon_temp.d = -polygon_temp.a*p1.x - polygon_temp.b*int_y1 - polygon_temp.c*p1.z;
-		polygon_temp.id = i;
 
 
 		//Vec3f color(0.5f*(p1.z + 1), 0.5f*(p1.z +1), 0.5f*(p1.z + 1));
