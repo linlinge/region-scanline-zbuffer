@@ -135,18 +135,15 @@ void OpenGLFunc(int argc, char** argv)
 
 \section{算法}
 \subsection{数据结构}
-\paragraph{活化边表}
-活化边表主要存储了当前扫描线中接触到了那些边，分为两部分：（1）未画完的边；（2）顶点在该扫描线上的新加入的边。
-根据$y_{max}$将边进行分类：
+\subsubsection{边表}
+边表用来记录所有该模型包含的所有面片的边信息，边的数据结构如下所示：
 \begin{itemize}
-\item{$x_l:$左交点的$x$坐标。}
-\item{$dx_l:$左交点边上两相邻两条扫描线交点的$x$坐标差。}
-\item{$dy_l:$以和左交点所在边相交的扫描线数为初值，以后向下没处理一条扫描线减一。}
-\item{$x_r,dx_r,dy_r:$右边的交点的三个对应分量。}
-\item{$id:$边所属多边形的编号。}
-\item{$dz_x:$沿扫描线向右一个像素，多边形所在平面的深度增量。$dz_x=-\frac{a}{c}(c \neq 0)$}
-\item{$dz_y:$沿$y$方向向下移动一根扫描线时，多边形所在平面的深度增量$dz_y=\frac{b}{c}(c \neq 0)$。}
-\item{$id:$交点所在多边形的编号。}
+\item{$x$:边上端点的$x$坐标}
+\item{$x_c$：在当前扫描线中，该边的$x$坐标}
+\item{$dx$：相邻两个扫描线之间的$x$坐标之差}
+\item{$dy$：该边{\color{red} 剩余的}扫描线数}
+\item{$dy_{max}$:该边涉及的所有扫描线数}
+\item{$id$：该边对应的多边形$id$号}
 \end{itemize}
 \begin{figure}[H]
 \setlength{\abovecaptionskip}{2pt}
@@ -158,11 +155,14 @@ void OpenGLFunc(int argc, char** argv)
 
 \paragraph{活化多边形表}
 根据$y_{max}$的值对多边形进行分类：
+\subsubsection{活化边表}
+活化多边形表的结构和边表相同，与之不同的是活化边表记录了当前扫描线所在行涉及到的边。因此该表在扫描线进行移动时需要不断的清空画完的边并且不断地更新加入新的边。
+
+\subsubsection{多边形表}
+多边形表存储了该模型包含的所有面片所在面的信息，多边形表的数据结构如下所示：
 \begin{itemize}
-\item{$a,b,c,d:$多边形所在平面的方程系数}
-\item{$id:$多边形的编号}
-\item{$dy:$多边形跨越的{\color{red} 剩余}扫描线数目}
-\item{$color:$多边形的颜色}
+\item{$a,b,c,d$:当前多边形所在面的方程系数}
+\item{$color$：当前多边形的颜色}
 \end{itemize}
 \begin{figure}[H]
 \setlength{\abovecaptionskip}{2pt}
@@ -174,6 +174,7 @@ void OpenGLFunc(int argc, char** argv)
 
 \subsection{算法流程}
 加载文件$\to$获取深度值$\to$消隐算法
+
 
 \subsection{算法的加速}
 \subsubsection{存储器的优化}
@@ -255,8 +256,8 @@ bunny.obj&69451&208353&1.9299\\
 \paragraph{方案一:}
 该方案是利用边状态的一些性质进行判断，如下所示总结出边状态的两大性质：
 \begin{itemize}
-\item{边的in和out状态的个数必须对应}
-\item{对于扫描线扫到的同一个三角片中的边状态必定in在out之前}
+\item{边的in和out状态的个数必须对应；}
+\item{对于扫描线扫到的同一个三角片中的边状态必定in在out之前，将活化边表按照$id$进行排序，这样同个三角形的$in$和$out$的边就相邻存放，$x_c$小的则为$in$的边，$x_c$大的则为$out$的边。}
 \end{itemize}
 \paragraph{方案二：}
 如下图所示是线段$P_1P_2$为in状态的情况，假设$P_1,P_2,P_3$点对应的坐标分别为$(x_1,y_1),(x_2,y_2),(x_3,y_3)$。则线段$P_1P_2$的斜率为
@@ -275,10 +276,7 @@ f(x,y)=\frac{y-y_1}{y_2-y_1}-\frac{x-x_1}{x_2-x_1}
 \begin{equation}
 sign(y_2-y_1)kf(x_3,y_3)<0
 \end{equation}
-既
-\begin{equation}
-(x_2-x_1)(y_3-y_1)+(y_1-y_2)(x_3-x_1)<0
-\end{equation}
+
 
 \begin{figure}[H]
 \begin{center}
@@ -292,8 +290,9 @@ sign(y_2-y_1)kf(x_3,y_3)<0
 \end{minipage}
 \end{center}
 \end{figure}
+
 \paragraph{总结：}
-对比方案一和方案二不能看出方案一的思路更为简单计算量较小，因此算法中采用了方案一进行边状态的判断。
+对比方案一和方案二不能看出方案一的思路更为简单计算量较小，因此算法中采用了\bm{方案一}进行边状态的判断。
 \subsection{结果中出现空白点}
 
 \section{经验总结}

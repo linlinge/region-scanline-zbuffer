@@ -50,7 +50,6 @@ class PolygonElement
 {
 public:
 	float a, b, c, d;	// parameters of this polygon plan
-	int id;				// identifier of this polygon
 	Vec3f color;		// color of this polygon
 };
 
