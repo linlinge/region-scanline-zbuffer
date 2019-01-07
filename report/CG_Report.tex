@@ -85,15 +85,12 @@ $$e.g.\hspace{15pt} f \hspace{5pt} 1/1/1 \hspace{5pt} 2/2/2 \hspace{5pt} 3/3/3$$
 \subsection{OpenGL预备知识}
 \subsubsection{OpenGL的坐标系}
 OpenGL中常用的坐标系有局部坐标系、世界坐标系、视点坐标系、投影坐标系、规格化设备坐标系和屏幕坐标系。\\
-\bm{规格化设备坐标系$O_dX_dY_dZ_d$}:其坐标范围为$\{x,y,z \in [-1,1]\}$，它以创建的窗口的中心为原点$O_d$\\
+\paragraph{规格化设备坐标系$O_dX_dY_dZ_d$} \mbox{}\\
+其坐标范围为$\{x,y,z \in [-1,1]\}$，它以创建的窗口的中心为原点$O_d$\\
 $X_d$轴：从左向右为正方向\\
-$Y_d$轴：从下往上为正方向。屏幕坐标系$O_sX_sY_s$以屏幕左上角为坐标原点，从左往右为$X_s$轴正方向，从上往下为$Y_s$轴正方向。\\
-\\
-\bm{世界坐标系}
-
+$Y_d$轴：从下往上为正方向。屏幕坐标系$O_sX_sY_s$以屏幕左上角为坐标原点，从左往右为$X_s$轴正方向，从上往下为$Y_s$轴正方向。
+\paragraph{世界坐标系} \mbox{}\\
 原点$O_w$：以屏幕中心为原点，始终保持不变。
-
-
 \begin{figure}[H]
 \setlength{\abovecaptionskip}{2pt}
 \setlength{\belowcaptionskip}{20pt}
@@ -102,7 +99,6 @@ $Y_d$轴：从下往上为正方向。屏幕坐标系$O_sX_sY_s$以屏幕左上�
 \caption{常用坐标系变换}
 \end{center}
 \end{figure}
-
 
 \subsubsection{OpenGL工程的搭建}
 OpenGL是一种跨平台的图形渲染编程接口，下面总结了搭建OpenGL工程的过程。
@@ -138,7 +134,6 @@ void OpenGLFunc(int argc, char** argv)
 
 
 \section{算法}
-加载文件$\to$获取深度值$\to$消隐算法
 \subsection{数据结构}
 \paragraph{活化边表}
 活化边表主要存储了当前扫描线中接触到了那些边，分为两部分：（1）未画完的边；（2）顶点在该扫描线上的新加入的边。
@@ -161,7 +156,6 @@ void OpenGLFunc(int argc, char** argv)
 \caption{分类边表}
 \end{figure}
 
-
 \paragraph{活化多边形表}
 根据$y_{max}$的值对多边形进行分类：
 \begin{itemize}
@@ -178,7 +172,8 @@ void OpenGLFunc(int argc, char** argv)
 \caption{分类多边形表}
 \end{figure}
 
-
+\subsection{算法流程}
+加载文件$\to$获取深度值$\to$消隐算法
 
 \subsection{算法的加速}
 \subsubsection{存储器的优化}
@@ -190,26 +185,26 @@ void OpenGLFunc(int argc, char** argv)
 \end{lstlisting}
 
 
-
-
 \section{实验结果}
 \subsection{实验环境}
 本次实验的环境如下：
 \begin{table}[H]
-\caption{环境参数}
+\caption{实验环境参数}
 \begin{center}
 \begin{tabular}{ll}
 \toprule  %添加表格头部粗线
-& 参数\\
+参数& 描述\\
 \midrule  %添加表格中横线
 System& Windows 10 64bit \\
-CPU& Intel(R) Core(TM) i5-4590 CPU @3.30GHz 3.3GHz（4核）\\
-RAM& 16GB\\
-GPU& GeForce GTX 960 (2GB显存)\\
+CPU& Intel(R) Core(TM) i5-2410M CPU @2.30GHz 2.3GHz（4核）\\
+RAM& 6GB\\
+IDE& Visual Studio 2017 \\
+Library& OpenGL\\
 \bottomrule %添加表格底部粗线
 \end{tabular}
 \end{center}
 \end{table}
+
 \subsection{简单案例的设计}
 在实际调试过程中会出现很多问题，为了方便调试，设计了如下所示的一些简单实例帮助调试：
 \begin{figure}[H]
@@ -230,11 +225,11 @@ GPU& GeForce GTX 960 (2GB显存)\\
 \begin{center}
 \begin{tabular}{ccccc}
 \toprule  %添加表格头部粗线
-文件&三角片数&顶点数&优化前帧速(fps)&优化后帧速(fps)\\
+文件&三角片数&顶点数&优化前帧速(fps)\\
 \midrule  %添加表格中横线
-cat.obj&2755&5506&11.7883& \\
-duck.obj&791&3957& 6.0306&\\
-bunny.obj&69451&208353&1.9299&\\
+cat.obj&2755&5506&11.7883 \\
+duck.obj&791&3957& 6.0306\\
+bunny.obj&69451&208353&1.9299\\
 \bottomrule %添加表格底部粗线
 \end{tabular}
 \end{center}
