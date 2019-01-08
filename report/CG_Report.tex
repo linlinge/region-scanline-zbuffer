@@ -4,7 +4,7 @@
 \usepackage{booktabs}
 \usepackage{diagbox}
 \usepackage{float}
-
+\usepackage{multirow}
 
 \usepackage{listings}
 \usepackage{xcolor}
@@ -48,6 +48,8 @@
     tabsize=4,
 }
 
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}  
+
 
 %layout
 \usepackage{calc} 
@@ -64,8 +66,8 @@
 
 
 \section{预备知识}
-\subsection{$obj$文件}
-obj文件并不考虑物体的大小，所以不同的物体读入的坐标范围可能变化很大，因此为了现实的方便需要将其转为规范化设备坐标。
+\subsection{obj文件}
+obj文件并不考虑物体的大小，所以不同的物体读入的坐标范围可能变化很大，因此为了显示的方便需将其转为当前绘制坐标系中。
 
 \bm{顶点的表示：}顶点以$v$开头后面跟着该顶点的$x,y,z$三轴坐标，示例如下
 $$format. \hspace{15pt} v\hspace{5pt} x\hspace{5pt}y\hspace{5pt}z$$
@@ -84,21 +86,33 @@ $$format.\hspace{15pt} f \hspace{5pt} v/vt/vn \hspace{5pt} v/vt/vn \hspace{5pt} 
 $$e.g.\hspace{15pt} f \hspace{5pt} 1/1/1 \hspace{5pt} 2/2/2 \hspace{5pt} 3/3/3$$
 \subsection{OpenGL预备知识}
 \subsubsection{OpenGL的坐标系}
-OpenGL中常用的坐标系有局部坐标系、世界坐标系、视点坐标系、投影坐标系、规格化设备坐标系和屏幕坐标系。\\
-\paragraph{规格化设备坐标系$O_dX_dY_dZ_d$} \mbox{}\\
-其坐标范围为$\{x,y,z \in [-1,1]\}$，它以创建的窗口的中心为原点$O_d$\\
-$X_d$轴：从左向右为正方向\\
-$Y_d$轴：从下往上为正方向。屏幕坐标系$O_sX_sY_s$以屏幕左上角为坐标原点，从左往右为$X_s$轴正方向，从上往下为$Y_s$轴正方向。
-\paragraph{世界坐标系} \mbox{}\\
-原点$O_w$：以屏幕中心为原点，始终保持不变。
-\begin{figure}[H]
-\setlength{\abovecaptionskip}{2pt}
-\setlength{\belowcaptionskip}{20pt}
+本报告中用到的OpenGL坐标系有世界坐标系、当前绘制坐标系和屏幕坐标系。其中当前绘制坐标系，在为使用glTranslatef()，glScalef(), glRotatef()等函数进行操作之前的初始状态时与世界坐标系是重合的，其具体的定义如下表表格所示：\\
+\begin{table}[H]
+\caption{坐标系的介绍}
 \begin{center}
-\includegraphics[scale=0.5]{coordinate.png}
-\caption{常用坐标系变换}
+\begin{tabular}{clc}
+\toprule
+坐标系名称&\multicolumn{2}{c}{轴方向定义}\\
+\midrule
+\multirow{4}*{\tabincell{c}{世界坐标系\\$O_wX_wY_w$}} & 原点$O_w$&屏幕中心为原点(0,0,0)\\
+~&$X_d$轴&从左往右为$X_s$轴正方向，可见范围为[-1,1]\\
+~&$Y_d$轴&从下往上为$Y_s$轴正方向，可见范围为[-1,1]\\
+~&$Z_d$轴&由屏幕内部指向外部\\
+
+\hline
+\multirow{4}*{\tabincell{c}{初始状态时\\当前绘制坐标系\\$O_dX_dY_dZ_d$}} & 原点$O_d$&屏幕中心为原点(0,0,0)\\
+~&$X_d$轴&从左向右为$X_d$轴正方向\\
+~&$Y_d$轴&从下往上为$Y_d$轴正方向\\
+~&$Z_d$轴&由屏幕内部指向外部\\
+
+\hline
+\multirow{3}*{\tabincell{c}{屏幕坐标系\\$O_sX_sY_s$}} & 原点$O_s$&屏幕左上角为(0,0)\\
+~&$X_d$轴&从左往右为$X_s$轴正方向\\
+~&$Y_d$轴&从下往上为$Y_s$轴正方向\\
+\bottomrule
+\end{tabular}
 \end{center}
-\end{figure}
+\end{table}
 
 \subsubsection{OpenGL工程的搭建}
 OpenGL是一种跨平台的图形渲染编程接口，下面总结了搭建OpenGL工程的过程。
@@ -148,13 +162,11 @@ void OpenGLFunc(int argc, char** argv)
 \begin{figure}[H]
 \setlength{\abovecaptionskip}{2pt}
 \begin{center}
-\includegraphics[scale=0.4]{structure2.png}
+\includegraphics[scale=0.2]{structure1.png}
+\caption{边表初始化示意图}
 \end{center}
-\caption{分类边表}
 \end{figure}
 
-\paragraph{活化多边形表}
-根据$y_{max}$的值对多边形进行分类：
 \subsubsection{活化边表}
 活化多边形表的结构和边表相同，与之不同的是活化边表记录了当前扫描线所在行涉及到的边。因此该表在扫描线进行移动时需要不断的清空画完的边并且不断地更新加入新的边。
 
@@ -164,27 +176,20 @@ void OpenGLFunc(int argc, char** argv)
 \item{$a,b,c,d$:当前多边形所在面的方程系数}
 \item{$color$：当前多边形的颜色}
 \end{itemize}
-\begin{figure}[H]
-\setlength{\abovecaptionskip}{2pt}
-\begin{center}
-\includegraphics[scale=0.4]{structure1.png}
-\end{center}
-\caption{分类多边形表}
-\end{figure}
 
 \subsection{算法流程}
-加载文件$\to$获取深度值$\to$消隐算法
-
-
+如下图所示是本报告中所用算法的算法流程图：
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.3]{algorithm_chart_flow.png}
+\caption{算法流程图}
+\end{center}
+\end{figure}
 \subsection{算法的加速}
-\subsubsection{存储器的优化}
+\subsubsection{边状态判断加速}
+由于边状态的判断比较复杂会有大量不必要的计算，考虑到多边形边的性质，既同一条扫描线中的同一个多边形有且仅有两条边过该扫描线，并且$x$值小的为in状态，$x$值大的为out状态，所以我们可以以边对于的多边形id对活化边表进行排序，并且保证同一个多边形的边尽量靠近，以防止存在刚好$x$值相等的边影响排序结果。
 
-\subsubsection{取整的优化}
-在扫描线算法中，需要进行大量的取整运算，c++中可以利用round函数来实现。宏相比于函数而言能够减少函数带来的开销，因此我们可以定义如下宏来代替该函数：
-\begin{lstlisting}
-	#define ROUND(DAT) ((int)(DAT+0.5))
-\end{lstlisting}
-
+\subsubsection{背景色加速}由于本报告中加入了背景色，如果每次都要重新计算背景色会耗费不必要的CPU时间，因此本报告中初始化时将背景色的值存入一组数组中，在绘制时直接读取。
 
 \section{实验结果}
 \subsection{实验环境}
@@ -236,20 +241,22 @@ bunny.obj&69451&208353&1.9299\\
 \end{center}
 \end{table}
 
+如下所示是各个模型显示的效果图：
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{cat.png}
 \includegraphics[scale=0.5]{duck.png}
 \end{center}
+\caption{cat和duck模型显示效果图}
 \end{figure}
 
 \begin{figure}[H]
 \begin{center}
 \includegraphics[scale=0.5]{bunny.png}
+\caption{bunny模型显示效果图}
 \end{center}
 \end{figure}
-\subsection{程序分析}
-本次使用的是称为$bunny.obj$的文件，该文件中包含了$v$和$f$开头的数据，代码中$load\_obj.h$和$load\_obj.cpp$两个文件定义了加载$obj$文件的方法。
+从效果图中可以较清晰的看出模型的轮廓和纹理(由于为加光照模型，没有阴影效果)，除此之外效果图中还有一些斑点，可能的原因是多边形端点处考虑依然不够全面，有待进一步的完善。
 
 \section{关于一些问题的讨论}
 \subsection{边状态的判定}
@@ -293,11 +300,6 @@ sign(y_2-y_1)kf(x_3,y_3)<0
 
 \paragraph{总结：}
 对比方案一和方案二不能看出方案一的思路更为简单计算量较小，因此算法中采用了\bm{方案一}进行边状态的判断。
-\subsection{结果中出现空白点}
-
-\section{经验总结}
-\begin{itemize}
-\item{用特殊的案例对结果进行测试}
-\end{itemize}
-
+\subsection{模型着色的考虑}
+由于自己写光照模型会比较复杂，因此本报告中采用了较为简单的方案，及将$z$轴的值转化到[0,1]之间，以该值作为灰度值对模型进行着色。
 \end{document}
